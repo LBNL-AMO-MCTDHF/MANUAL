@@ -1,0 +1,59 @@
+\BOOKMARK [1][-]{section.0.1}{Quick Install}{}
+\BOOKMARK [1][-]{section.0.2}{Running the code}{}
+\BOOKMARK [1][-]{section.0.3}{File system etiquette}{}
+\BOOKMARK [1][-]{section.0.4}{Run Control}{}
+\BOOKMARK [1][-]{section.0.5}{Changes from version 0}{}
+\BOOKMARK [1][-]{section.0.6}{Optimizing your runs}{}
+\BOOKMARK [1][-]{section.0.7}{Nomenclature}{}
+\BOOKMARK [0][-]{chapter.1}{Installation}{}
+\BOOKMARK [0][-]{chapter.2}{Input}{}
+\BOOKMARK [1][-]{section.2.1}{Namelist input}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Specifying the wave function}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.2.1}{Symmetry constraints}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.2}{Restricted configuration spaces}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.3}{Specifying the initial orbitals}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.4}{Frozen orbitals }{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.5}{Specifying the initial A-vector}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.6}{Annihilation}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.7}{Excitation}{section.2.2}
+\BOOKMARK [1][-]{section.2.3}{Primitive basis and Hamiltonian}{chapter.2}
+\BOOKMARK [1][-]{section.2.4}{Propagation parameters}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.4.1}{Analyzing the propagation}{section.2.4}
+\BOOKMARK [2][-]{subsection.2.4.2}{Using sparse configuration routines}{section.2.4}
+\BOOKMARK [1][-]{section.2.5}{Action input }{chapter.2}
+\BOOKMARK [1][-]{section.2.6}{Complete list of namelist variables}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{Output }{}
+\BOOKMARK [1][-]{section.3.1}{Action output \(incomplete list\)}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Types of calculation}{}
+\BOOKMARK [1][-]{section.4.1}{Relaxation calculation}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Utility}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Pulse calculation}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Propagation calculation, no pulse \(fourier run\)}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Analysis / plotting}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Actions}{}
+\BOOKMARK [1][-]{section.5.1}{Autocorrelation, action 1}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Saving orbitals \(actions 2-4\) and plotting orbitals \(actions 8-10\)}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Flux and projected flux for photoionization \(actions 15, 16, 17\)}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.3.1}{Options for saving wave function during propagation \(Action 15\) }{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.2}{Total photoionization \(Action 16\)}{section.5.3}
+\BOOKMARK [2][-]{subsection.5.3.3}{Partial photoionization \(Action 17\)}{section.5.3}
+\BOOKMARK [1][-]{section.5.4}{Calculating overlaps with given wave functions \(action 20\)}{chapter.5}
+\BOOKMARK [1][-]{section.5.5}{Fourier transform of dipole moment for absorption \(action 21\)}{chapter.5}
+\BOOKMARK [1][-]{section.5.6}{Overlaps between wave functions on file \(actions 15, 23\)}{chapter.5}
+\BOOKMARK [1][-]{section.5.7}{Keprojector \(action 24\)}{chapter.5}
+\BOOKMARK [1][-]{section.5.8}{Unsupported/deprecated actions}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Viewing the output}{}
+\BOOKMARK [1][-]{section.6.1}{Two auxillary files}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Examples}{}
+\BOOKMARK [1][-]{section.7.1}{Total and partial photoionization cross sections: directories H2PHOTO, HEPHOTO, O2-photo }{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Transient absorption/emission and wave mixing}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{O2.transient.absorption.ONE}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{2D spectra for O2 and He}{section.7.2}
+\BOOKMARK [0][-]{chapter.8}{Programmers' guide}{}
+\BOOKMARK [1][-]{section.8.1}{Main program files}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Project directories}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{About the Makefile and Makeme}{chapter.8}
+\BOOKMARK [1][-]{section.8.4}{Important variables}{chapter.8}
+\BOOKMARK [1][-]{section.8.5}{Project directories}{chapter.8}
+\BOOKMARK [2][-]{subsection.8.5.1}{Functions/subroutines that are necessary to define}{section.8.5}
