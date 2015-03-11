@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.4-2.2 (Web2C 7.5.5) (format=pdflatex 2006.8.2)  7 MAR 2015 20:46
+This is pdfeTeX, Version 3.141592-1.30.4-2.2 (Web2C 7.5.5) (format=pdflatex 2006.8.2)  7 MAR 2015 23:33
 entering extended mode
 \write18 enabled.
 **LBNL-AMO-MCTDHF.TEX
@@ -1033,4 +1033,4 @@ etex/fonts/type1/bluesky/cm/cmsy9.pfb></usr/local/teTeX/share/texmf.tetex/fonts
 /type1/bluesky/cm/cmr9.pfb></usr/local/teTeX/share/texmf.tetex/fonts/type1/blue
 sky/cm/cmr12.pfb></usr/local/teTeX/share/texmf.tetex/fonts/type1/bluesky/cm/cmr
 17.pfb>
-Output written on LBNL-AMO-MCTDHF.pdf (55 pages, 796468 bytes).
+Output written on LBNL-AMO-MCTDHF.pdf (55 pages, 796459 bytes).
