@@ -176,7 +176,7 @@ prompt> ls
    LBNL-AMO-MCTDHF.pdf
    EXAMPLES
    MCTDH.SRC
-   COMPDIR
+   COMPDIRS
       MCTDH.SRC -> ../MCTDH.SRC
       BIN.ecs.hermnorm.law.openmp.nofft
       debug.BIN.ecs.hermnorm.mac
@@ -186,28 +186,27 @@ prompt> ls
 %
 etc.
 
-There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIR#.  
+There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIRS#.  
 The \verb#MCTDH.SRC# directory at top level contains the actual hard copy of the fortran code.  The code is NOT compiled in \verb#MCTDH.SRC#.
-There are many compilation directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIR#.  
+There are many compilation directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIRS#.  
 There are optimized versions, and versions with debugging flags.  Please compile the debugging version too and use it if the code
 seems to be producing an invalid or unstable result, or actually crashes.  The supported machines, the machines with ready-to-go
-directories in \verb#COMPDIR#, are 
+directories in \verb#COMPDIRS#, are 
 \begin{itemize}
 \item{Lawrencium (extension \verb#.law#, e.g. \verb#BIN.ecs.hermnorm.law.openmp.nofft#).  Intel sandybridge, intel fortran compiler with mkl.}
 \item{Edison on NERSC (extension \verb#.edison#, e.g. \verb#debug.BIN.ecs.hermnorm.edison#)}
 \item{Mac (extension \verb#.mac#, e.g. \verb#debug.BIN.mac#)}
 \end{itemize}
 
-Either move the \verb#BIN# directories that you are interested in compiling to top level, from \verb#COMPDIR#, or go into \verb#COMPDIR# to compile them.
-You can compile either in top level or \verb#COMPDIR#; the symbolic links to \verb#MCTDH.SRC# will work either way.
-You may delete the directories in \verb#COMPDIR# that you don't want, but they don't take too much space.
+You may delete the directories in \verb#COMPDIRS# that you don't want.
 
 All you need to do is go to the \verb#BIN# directory you want and run \verb#./Makeme#.  The code should then be compiled as, e.g.
 {\footnotesize
 \begin{verbatim}
-prompt> mv COMPDIR/*BIN*mac* .
-prompt> rm -r COMPDIR
-prompt> cd BIN.ecs.hermnorm.mac
+prompt> mv COMPDIRS/*BIN*mac* .
+prompt> rm -r COMPDIRS/*
+prompt> mv *BIN*mac* COMPDIRS
+prompt> cd COMPDIRS/BIN.ecs.hermnorm.mac
 prompt> ./Makeme
 prompt> ls
       .
@@ -223,8 +222,8 @@ Then you need to put the three programs in your \verb#$PATH# somehow so that you
 prompt> echo $PATH
   /usr/bin:/usr/sbin:/opt/local/bin:/home/me/bin
 prompt> cd ~/bin
-prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/MCTDHF.010115.VERSION1.0/BIN.ecs.hermnorm/chmctdhf_diatom ./chmctdhf_diatom
-prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/MCTDHF.010115.VERSION1.0/debug.BIN/mctdhf_sinc ./mctdhf_sinc.debug
+prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/BIN.ecs.hermnorm/chmctdhf_diatom ./chmctdhf_diatom
+prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/debug.BIN/mctdhf_sinc ./mctdhf_sinc.debug
 \end{verbatim}}
 etc.
 
@@ -406,7 +405,7 @@ A-vector propagation may begin to take the majority of the computation time.
 For the polyatomic version \verb#chmctdhf_sinc#, you will find best performance using one process per node (as opposed to
 one process per core, for \verb#chmctdhf_atom# and \verb#chmctdhf_diatom#, which are generally run as sequential programs,
 not parallel).  There are both vectorized (xSSE4.2, with intel FFT) and OpenMP (using FFTPACK) 
-compilation directories provided for the lawrencium machine in \verb#COMPDIR#.  The sequential (no shared memory, only
+compilation directories provided for the lawrencium machine in \verb#COMPDIRS#.  The sequential (no shared memory, only
 MPI parallelization) version is directory \verb#BIN.ecs.hermnorm.law.seq#.  On this machine \verb#$OMP_NUM_THREADS# controls
 the number of threads per process and for the vectorized and OpenMP versions, all threads are taken if it is not set.
 
@@ -615,7 +614,7 @@ prompt> ls
          sincDVR.f90
       H2PROJECT
          H2_params.f90
-   COMPDIR
+   COMPDIRS
       MCTDH.SRC -> ../MCTDH.SRC
       BIN.ecs.hermnorm.law.openmp.nofft
          Definitions.INC
@@ -638,28 +637,27 @@ prompt> ls
 %
 etc.
 
-There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIR#.  
+There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIRS#.  
 The \verb#MCTDH.SRC# directory at top level contains the actual hard copy of the fortran code.
-There are many directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIR#.  
+There are many directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIRS#.  
 There are optimized versions, and versions with debugging flags.  Please compile the debugging version too and use it if the code
 seems to be producing an invalid or unstable result, or actually crashes.  The supported machines, the machines with ready-to-go
-directories in \verb#COMPDIR#, are 
+directories in \verb#COMPDIRS#, are 
 \begin{itemize}
 \item{Lawrencium (extension \verb#.law#, e.g. \verb#BIN.ecs.hermnorm.law.openmp.nofft#).  Intel sandybridge, intel fortran compiler with mkl.}
 \item{Edison on NERSC (extension \verb#.edison#, e.g. \verb#debug.BIN.ecs.hermnorm.edison#)}
 \item{Mac (extension \verb#.mac#, e.g. \verb#debug.BIN.mac#)}
 \end{itemize}
 
-Either move the \verb#BIN# directories that you are interested in compiling to top level, from \verb#COMPDIR#, or go into \verb#COMPDIR# to compile them.
-You can compile either in top level or \verb#COMPDIR#; the symbolic links to \verb#MCTDH.SRC# will work either way.
-You may delete the directories in \verb#COMPDIR# that you don't want, but they don't take any space.
+You may delete the directories in \verb#COMPDIRS# that you don't want, but they don't take any space.
 
 All you need to do is go to the \verb#BIN# directory you want and run \verb#./Makeme#.  The code should then be compiled as, e.g.
 {\footnotesize
 \begin{verbatim}
-prompt> mv COMPDIR/BIN*mac* .
-prompt> rm -r COMPDIR
-prompt> cd BIN.ecs.hermnorm.mac
+prompt> mv COMPDIRS/*BIN*mac* .
+prompt> rm -r COMPDIRS/*
+prompt> mv *BIN*mac* COMPDIRS
+prompt> cd COMPDIRS/BIN.ecs.hermnorm.mac
 prompt> ./Makeme
 prompt> ls
       .
@@ -675,8 +673,8 @@ Then you need to put the program in your \verb#$PATH# somehow so that you can us
 prompt> echo $PATH
   /usr/bin:/usr/sbin:/opt/local/bin:/home/me/bin
 prompt> cd ~/bin
-prompt> ln -s myprogs/LBNL-AMO-MCTDHF/MCTDHF.010115.VERSION1.0/BIN.ecs.hermnorm.mac/chmctdhf_diatom ./chmctdhf_diatom
-prompt> ln -s myprogs/LBNL-AMO-MCTDHF/MCTDHF.010115.VERSION1.0/debug.BIN.ecs.hermnorm.mac/chmctdhf_diatom ./chmctdhf_diatom.debug
+prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/BIN.ecs.hermnorm/chmctdhf_diatom ./chmctdhf_diatom
+prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/debug.BIN/mctdhf_sinc ./mctdhf_sinc.debug
 \end{verbatim}}
 
 There are four versions of the code with different datatypes, but \verb#chmctdhf# is all that is generally needed.  Compilation directories 
@@ -2142,8 +2140,7 @@ the last two directories compute to 2D spectra.
 \chapter{Programmers' guide}
 
 
-Again, the directory structure, right out of the package, is as follows.  One may move the desired \verb#BIN# directories to top level and remove \verb#COMPDIR#
-entirely.
+Again, the directory structure, right out of the package, is as follows. 
 
 {\footnotesize
 \begin{verbatim}
@@ -2153,7 +2150,7 @@ entirely.
       SINCDVR
       H2PROJECT
       HEPROJECT
-   COMPDIR
+   COMPDIRS
       MCTDH.SRC -> ../MCTDH.SRC
       BIN.ecs.hermnorm.law.openmp.nofft
          Definitions.INC
