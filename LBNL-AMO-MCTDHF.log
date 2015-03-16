@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.4-2.2 (Web2C 7.5.5) (format=pdflatex 2006.8.2)  15 MAR 2015 10:23
+This is pdfeTeX, Version 3.141592-1.30.4-2.2 (Web2C 7.5.5) (format=pdflatex 2006.8.2)  15 MAR 2015 19:14
 entering extended mode
 \write18 enabled.
 **LBNL-AMO-MCTDHF.TEX
@@ -524,61 +524,61 @@ m/n/10 , []\OT1/cmtt/m/n/10 chmctdhf_atom\OT1/cmr/m/n/10 ,
 \openout2 = `parinp.aux'.
 
  (./parinp.tex
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 31--31
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 33--33
 []\OT1/cmtt/m/n/8 integer :: parorbsplit=1                         !!  Parallel
 ize orbital calculation.  Might speed up, might[] 
  []
 
 
-Overfull \hbox (25.01282pt too wide) in paragraph at lines 31--31
+Overfull \hbox (25.01282pt too wide) in paragraph at lines 33--33
 []\OT1/cmtt/m/n/8 !! **********************************************************
 ************************************************* !![] 
  []
 
 
-Overfull \hbox (25.01282pt too wide) in paragraph at lines 31--31
+Overfull \hbox (25.01282pt too wide) in paragraph at lines 33--33
 []\OT1/cmtt/m/n/8 !! **********************************************************
 ************************************************* !![] 
  []
 
 
-Overfull \hbox (25.01282pt too wide) in paragraph at lines 41--41
+Overfull \hbox (25.01282pt too wide) in paragraph at lines 43--43
 []\OT1/cmtt/m/n/8 integer :: sparseconfigflag=0    !! Sparse       !! Sparse co
 nfiguration routines on or off (for large # configs)[] 
  []
 
 
-Overfull \hbox (46.26312pt too wide) in paragraph at lines 41--41
+Overfull \hbox (46.26312pt too wide) in paragraph at lines 43--43
 []\OT1/cmtt/m/n/8 integer :: orbcompact=0          !!              !! Compact o
 rbitals for expo prop with spfrestrictflag?  Probably ok.[] 
  []
 
 
-Overfull \hbox (25.01282pt too wide) in paragraph at lines 66--66
+Overfull \hbox (25.01282pt too wide) in paragraph at lines 68--68
 []\OT1/cmtt/m/n/8 integer :: mrestrictmax= 99999   !!              !! If doing 
 state averaged MCSCF, can include a range of m vals;[] 
  []
 
 
-Overfull \hbox (33.51294pt too wide) in paragraph at lines 66--66
+Overfull \hbox (33.51294pt too wide) in paragraph at lines 68--68
 []\OT1/cmtt/m/n/8 integer :: mrestrictmin=-99999   !!              !!    set th
 ese variables, with mrestrictflag=0, spfrestrictflag=1[] 
  []
 
 
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 66--66
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 68--68
 []\OT1/cmtt/m/n/8 integer :: restrictms=0          !!              !! For restr
 ictflag=1: 2*m_s: 2x total m_s (multiplicity of[] 
  []
 
 
-Overfull \hbox (33.51294pt too wide) in paragraph at lines 66--66
+Overfull \hbox (33.51294pt too wide) in paragraph at lines 68--68
 []\OT1/cmtt/m/n/8 integer :: spinrestrictval=0     !!              !! For allsp
 inproject=1: determines spin. Default high spin S=M_s.[] 
  []
 
 
-Overfull \hbox (42.01306pt too wide) in paragraph at lines 66--66
+Overfull \hbox (42.01306pt too wide) in paragraph at lines 68--68
 []                                                 \OT1/cmtt/m/n/8 !!  To overr
 ide use this variable. Equals 2S if S^2 eigval is S(S+1)[] 
  []
@@ -586,145 +586,145 @@ ide use this variable. Equals 2S if S^2 eigval is S(S+1)[]
 [21
 
 ]
-Overfull \hbox (12.26263pt too wide) in paragraph at lines 79--79
+Overfull \hbox (12.26263pt too wide) in paragraph at lines 81--81
 []\OT1/cmtt/m/n/8 integer :: numshells=1           !!              !! number of
  shells.  greater than one: possibly not full CI.[] 
  []
 
 
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 79--79
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 81--81
 []\OT1/cmtt/m/n/8 !!integer :: shelltop(100)=-1    !! Numfrozen=   !! shelltop 
 is namelist input in parinp; the internal variable[] 
  []
 
 
-Overfull \hbox (8.01257pt too wide) in paragraph at lines 79--79
+Overfull \hbox (8.01257pt too wide) in paragraph at lines 81--81
 []                                                 \OT1/cmtt/m/n/8 !!    is all
 shelltop.   shelltop(1) only may be assigned via[] 
  []
 
 
-Overfull \hbox (25.01282pt too wide) in paragraph at lines 79--79
+Overfull \hbox (25.01282pt too wide) in paragraph at lines 81--81
 []\OT1/cmtt/m/n/8 integer :: vexcite=99            !!              !! excitatio
 ns INTO last shell. Use to restrict to doubles, etc.[] 
  []
 
 
-Overfull \hbox (8.01257pt too wide) in paragraph at lines 110--110
+Overfull \hbox (8.01257pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 character (len=200) :: &         !!              !! A-vector 
 binary file to read.  Can have different configs[] 
  []
 
 
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 110--110
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 character (len=200) :: &         !!              !! Spf file 
 to read.  Can have fewer m vals, smaller radial[] 
  []
 
 
-Overfull \hbox (12.26263pt too wide) in paragraph at lines 110--110
+Overfull \hbox (12.26263pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 integer :: numholes=0                            !! Load a-ve
 ctor with this many more electrons and annihilate[] 
  []
 
 
-Overfull \hbox (8.01257pt too wide) in paragraph at lines 110--110
+Overfull \hbox (8.01257pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 integer :: numholecombo=1                        !! Number of
  (products of) annihilation operators to combine[] 
  []
 
 
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 110--110
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 integer :: numloadfrozen=0                       !! For loadi
 ng a vector with orbitals to be frozen (dangerous)[] 
  []
 
 
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 110--110
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 112--112
 []                                                 \OT1/cmtt/m/n/8 !!   numhole
 combo, number of such products to combine; then[] 
  []
 
 
-Overfull \hbox (33.51294pt too wide) in paragraph at lines 110--110
+Overfull \hbox (33.51294pt too wide) in paragraph at lines 112--112
 []\OT1/cmtt/m/n/8 integer,allocatable:: myavectorexcitefrom(:,:,:) !! Similar t
 o avectorhole.  Namelist input avectorexcitefrom, etc.[] 
  []
 
 
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 129--129
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 131--131
 []\OT1/cmtt/m/n/8 integer :: improvedquadflag=0    !!              !! Use newto
 n iteration not diagonalization for improvedrelax.[] 
  []
 
 
-Overfull \hbox (8.01257pt too wide) in paragraph at lines 129--129
+Overfull \hbox (8.01257pt too wide) in paragraph at lines 131--131
 []                                                 \OT1/cmtt/m/n/8 !!     (1 = 
 A-vector newton [old option 2], others disabled)[] 
  []
 
 
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 129--129
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 131--131
 []\OT1/cmtt/m/n/8 real*8 :: stopthresh=1d-5        !!              !! Spf error
  tolerance for relaxation convergence (PRIMARY)[] 
  []
 
 
-Overfull \hbox (20.76276pt too wide) in paragraph at lines 129--129
+Overfull \hbox (20.76276pt too wide) in paragraph at lines 131--131
 []\OT1/cmtt/m/n/8 real*8 :: astoptol=1d-7                          !! Avector e
 rror tolerance for relax  (BACKUP - WAS STOPTHRESH)[] 
  []
 
 [22]
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 147--147
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 149--149
 []                                                 \OT1/cmtt/m/n/8 !!  SEE MANU
 AL FOR PROPER USE OF dfrestrictflag/shell options.[] 
  []
 
 [23]
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 202--202
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 204--204
 []\OT1/cmtt/m/n/8 real*8 :: minpulsetime=0.d0      !!              !!  By defau
 lt calc stops after pulse (overrides finaltime,[] 
  []
 
 [24]
-Overfull \hbox (20.76276pt too wide) in paragraph at lines 306--306
+Overfull \hbox (20.76276pt too wide) in paragraph at lines 308--308
 []\OT1/cmtt/m/n/8 integer :: sparseopt =1                          !! 0= direct
  CI  1= sparse matrix algebra (faster, more memory)[] 
  []
 
 
-Overfull \hbox (3.76251pt too wide) in paragraph at lines 306--306
+Overfull \hbox (3.76251pt too wide) in paragraph at lines 308--308
 []\OT1/cmtt/m/n/8 integer :: nosparseforce=0       !!              !! to overri
 de exit with large number of configs, no sparse[] 
  []
 
 
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 306--306
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 308--308
 []\OT1/cmtt/m/n/8 integer :: maxaorder=1000        !!              !!   lanczos
  order for sparse a-vector prop and improvedquad=2[] 
  []
 
 
-Overfull \hbox (33.51294pt too wide) in paragraph at lines 306--306
+Overfull \hbox (33.51294pt too wide) in paragraph at lines 308--308
 []\OT1/cmtt/m/n/8 integer :: lancheckstep=20       !!              !! lanczos e
 igen routine checks for convergence every this # steps[] 
  []
 
 
-Overfull \hbox (16.5127pt too wide) in paragraph at lines 306--306
+Overfull \hbox (16.5127pt too wide) in paragraph at lines 308--308
 []\OT1/cmtt/m/n/8 real*8 :: aerror=1d-9            !!              !! lanczos e
 rror criterion for sparse a-vector CMF propagation[] 
  []
 
 
-Overfull \hbox (20.76276pt too wide) in paragraph at lines 345--345
+Overfull \hbox (20.76276pt too wide) in paragraph at lines 347--347
 []\OT1/cmtt/m/n/8 integer :: drivingflag=0                         !!  Solve fo
 r the change in the wave function not wave function[] 
  []
 
 
-Overfull \hbox (8.01257pt too wide) in paragraph at lines 345--345
+Overfull \hbox (8.01257pt too wide) in paragraph at lines 347--347
 []\OT1/cmtt/m/n/8 integer :: noftflag=0            !!              !! turns off
  f.t. for flux. use for e.g. core hole propag'n.[] 
  []
@@ -989,9 +989,6 @@ T1/cmtt/m/n/10 call mysub(yyy%cmfpsivec(spfstart,0))\OT1/cmr/m/n/10 .
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  3963 strings out of 95137
@@ -1027,4 +1024,4 @@ etex/fonts/type1/bluesky/cm/cmsy9.pfb></usr/local/teTeX/share/texmf.tetex/fonts
 /type1/bluesky/cm/cmr9.pfb></usr/local/teTeX/share/texmf.tetex/fonts/type1/blue
 sky/cm/cmr12.pfb></usr/local/teTeX/share/texmf.tetex/fonts/type1/bluesky/cm/cmr
 17.pfb>
-Output written on LBNL-AMO-MCTDHF.pdf (54 pages, 794782 bytes).
+Output written on LBNL-AMO-MCTDHF.pdf (54 pages, 794836 bytes).
