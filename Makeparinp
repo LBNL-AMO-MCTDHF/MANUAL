@@ -19,3 +19,4 @@ echo "\\end{verbatim}" >> h2parinp.tex
 echo "\\end{verbatim}" >> sincparinp.tex
 echo "\\end{verbatim}" >> heparinp.tex
 
+rm temp.txt

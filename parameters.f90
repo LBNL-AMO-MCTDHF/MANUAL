@@ -14,6 +14,7 @@ module parameters
 
 !! recently added, otherwise notable. 
 
+real*8 :: maxquadnorm=1d10                       !! brakes to use if improvedquadflag=2 or 3 is diverging
 real*8 :: timestepfac=1d0                        !! accelerate relax
 real*8 :: max_timestep=1d10                      !!
 
@@ -126,7 +127,7 @@ real*8 :: finaltime=4d4          !! T=           !! length of prop.  Overridden 
 integer :: improvedrelaxflag=0   !! Relax        !! For improved versus regular relaxtion.   
 integer :: threshflag=0          !!              !! Set to 1 for regular relaxation
 integer :: improvedquadflag=0    !!              !! Use newton iteration not diagonalization for improvedrelax.
-                                                 !!     (1 = A-vector newton [old option 2], others disabled)
+                                                 !!     (1 = A-vector, 2 = orbitals, 3 = both)
 integer :: improvednatflag=0     !!              !! If improved relax, replace with natorbs every iter
                                                  !!    enforced & required for non full CI calculation
 real*8 :: stopthresh=1d-5        !!              !! Spf error tolerance for relaxation convergence (PRIMARY)
@@ -391,7 +392,8 @@ integer :: connormflag=0  !! normalize columns for conway=1 or 3
 integer :: sortwalks=0
 integer :: nonatrotate=0
 
-integer :: whichquad=1           !!     0=my eqn 1=rayleigh quotient
+!!!!!  integer :: whichquad=1           !!     0=my eqn 1=rayleigh quotient  WHICHQUAD 1 HARDWIRE
+
 integer :: orderflag=0           !! Order=       !! ordering of configs. 1= first all alphas,  then betas;  
                                                  !!    0= 1a1b2a2b etc.
 integer :: nonuc_checkflag=1     !!              !! Turn off deriv operators in nuclear dofs.
