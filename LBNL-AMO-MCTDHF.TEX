@@ -295,6 +295,11 @@ supported and will result in an error.  If these options are set, \verb#numpoint
 \verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
 \item{Velocity gauge was just implemented and barely tested; the factors might be right, but probably not.}
 \item{Only cubic grids are supported.  There is only one variable, \verb#numpoints#, number of points on a side.}
+\item{You can read in orbitals computed at double the grid spacing (e.g. \verb#spacing=1.0d0#) for a calculation at the current
+grid spacing in the input file (e.g. \verb#spacing=0.5d0#) by setting \verb#reinterp_orbflag=1# in namelist \verb#&parinp#.  
+\textbf{This is very useful} if you are trying to get an initial state eigenfunction for a very large calculation.  Starting with core orbitals
+takes too long, so you want to reinterpolate a prior solution for the orbitals onto the finer grid.  You can now do this, but only reinterpolating
+on a grid with $\frac{1}{2}$ the grid spacing as the first.  See example directories such as \verb#EXAMPLES/HELIUM-INTERPTEST3#.}
 \end{itemize}
 }
 %

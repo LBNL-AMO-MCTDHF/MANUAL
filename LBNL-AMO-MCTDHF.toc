@@ -3,7 +3,7 @@
 \contentsline {section}{\numberline {0.3}File system etiquette}{5}{section.0.3}
 \contentsline {section}{\numberline {0.4}Run Control}{5}{section.0.4}
 \contentsline {section}{\numberline {0.5}Changes from version 0}{5}{section.0.5}
-\contentsline {section}{\numberline {0.6}Optimizing your runs}{7}{section.0.6}
+\contentsline {section}{\numberline {0.6}Optimizing your runs}{8}{section.0.6}
 \contentsline {section}{\numberline {0.7}Nomenclature}{10}{section.0.7}
 \contentsline {chapter}{\numberline {1}Installation}{12}{chapter.1}
 \contentsline {chapter}{\numberline {2}Input}{14}{chapter.2}
