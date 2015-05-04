@@ -143,7 +143,8 @@ integer :: vexcite=99            !!              !! excitations INTO last shell.
 integer :: loadspfflag=0         !! Spf=file     !! load spfs to start calculation?  
                                                  !!    (Otherwise, core eigenfunctions.)
 integer :: reinterp_orbflag=0                    !! sinc dvr only, half spacing interpolation for orb load
-integer :: numspffiles=1
+integer :: spf_dimshift(3,100)=0                 !! sinc dvr only, shift orbitals on read, slow index spffile
+integer :: numspffiles=1         !!              !! for multiple-molecule (e.g. chemistry) calcs, load many
 integer :: numskiporbs=0         !!              !! Reading orbs on file(s), skips members of combined set.
 integer :: orbskip(1000)=0       !!              !! Which to skip
 integer :: loadavectorflag=0     !! A=file       !! load avector to start calculation?
@@ -191,6 +192,10 @@ real*8 :: conprop=1d-1                           !! epsilon for conway=3
 !!EE
 !!{\large \quad INPUT / OUTPUT }
 !!BB
+integer :: notiming=2            !!NoTiming=0,1,2!! 0=write all 1=write some 2= write none
+                                 !!  Timing=2,1,0!!     controls writing of all timing and some info files
+integer :: timingout=499         !!              !! various routines output to file (timing info) every this 
+                                 !!              !!   # of calls
 character (len=200) ::      avectoroutfile="Bin/avector.bin"  !! A-vector output file.        
 character (len=200) ::      spfoutfile="Bin/spfs.bin"         !! Spf output file.
 character(len=200):: psistatsfile="Dat/psistats.dat"
@@ -425,9 +430,6 @@ integer :: autosize, autosteps
 integer :: auto_biortho=1        !! do we want to use biorthonormalization or permutation overlaps? 0 perm overlaps, 1 biortho
 integer :: cdenflag=0            !!              !! Calulate natconfig?  Not necessary if Act=6.
 integer :: rdenflag=0            !!              !! Calulate denmat in R? 
-integer :: timingout=499         !!              !! various routines output to file (timing info) every this 
-                                 !!              !!   # of calls
-integer :: notiming=2            !! turn off writing of all timing and some info files   0=write all 1=write some 2= write none
 integer :: lanagain = -1  !! Lanczos restart flag.  Default -1 (lanczos eigen restart until converged)
                           !!    Otherwise, max number of maxlanorder full builds of krylov spaces (# restarts + 1)
                           !! Improved relax: starts at 1.  Incremented every time energy goes up with an iteration.
@@ -475,15 +477,35 @@ character (len=200) :: nullbuff="                                               
 end module parameters
 
 
+module mpi_orbsetmod
+  implicit none
+  integer :: mpi_orbset_init=0
+  integer :: orbsperproc=(-1),  norbsets
+  integer :: myorbset=-1, firstmpiorb=-1  !! specific to each processor
+  integer, allocatable :: MPI_GROUP_ORB(:),MPI_COMM_ORB(:)
+end module
+
+subroutine getOrbSetRange(out_lowspf,out_highspf)
+  use parameters
+  use mpi_orbsetmod
+  implicit none
+  integer, intent(out) :: out_lowspf, out_highspf
+  if (mpi_orbset_init.ne.1) then
+     OFLWR "error, mpiorbset init.ne.1",mpi_orbset_init; CFLST
+  endif
+  out_lowspf=firstmpiorb
+  out_highspf=min(nspf,firstmpiorb+orbsperproc-1)
+end subroutine getOrbSetRange
+
+
+
 module mpimod
   implicit none
 
 #ifdef MPIFLAG
   include "mpif.h"
 #endif
-  integer ::  MPI_GROUP_WORLD, orbsperproc=(-1),  norbsets
-  integer :: myorbset=-1, firstmpiorb=-1  !! specific to each processor
-  integer, allocatable :: MPI_GROUP_ORB(:),MPI_COMM_ORB(:)
+  integer ::  MPI_GROUP_WORLD
 
 integer :: nprocs=1, myrank
 character(len=200), parameter :: mpioutfilebase="MPIOUTS/MPI.Out."
