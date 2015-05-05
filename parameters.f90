@@ -6,11 +6,15 @@ implicit none
 integer :: mpifileptr
 end module
 
+module littleparmod
+  implicit none
+  integer, parameter :: MXF=5
+end module littleparmod
+
 !!YYSNIPYY
 !!BB
 module parameters
-  use fileptrmod
-  implicit none
+  use littleparmod;  use fileptrmod;  implicit none
 
 !! *********************************************************************************************************** !!
 !!   Parameters for MCTDHF calculation; parinp NAMELIST input from Input.Inp (default)
@@ -140,6 +144,11 @@ integer :: vexcite=99            !!              !! excitations INTO last shell.
 !!EE
 !!{\large \quad INITIALIZATION}
 !!BB
+integer :: loadavectorflag=0     !! A=file       !! load avector to start calculation?
+integer :: numavectorfiles=1     !!              !! number of avector files containing a-vectors to load into the
+                                                 !! mcscfnum available slots, or if load_avector_product.ne.0,
+                                                 !! number of one-wfn files for product, w/ total numelec=numelec
+integer :: load_avector_product=0                !! make product wave function for multiple-molecule load
 integer :: loadspfflag=0         !! Spf=file     !! load spfs to start calculation?  
                                                  !!    (Otherwise, core eigenfunctions.)
 integer :: reinterp_orbflag=0                    !! sinc dvr only, half spacing interpolation for orb load
@@ -147,12 +156,10 @@ integer :: spf_gridshift(3,100)=0                !! sinc dvr only, shift orbital
 integer :: numspffiles=1         !!              !! for multiple-molecule (e.g. chemistry) calcs, load many
 integer :: numskiporbs=0         !!              !! Reading orbs on file(s), skips members of combined set.
 integer :: orbskip(1000)=0       !!              !! Which to skip
-integer :: loadavectorflag=0     !! A=file       !! load avector to start calculation?
-integer :: numavectorfiles=1
-character (len=200) :: &         !!              !! A-vector binary file to read.  Can have different configs
-     avectorfile(100)="Bin/avector.bin"          !!   but should have same number of electrons.   
-character (len=200) :: &         !!              !! Spf file to read.  Can have fewer m vals, smaller radial 
-      spffile(100)="Bin/spfs.bin"!! Spf=filename !!   grid, or fewer than nspf total orbitals. 
+character (len=200) :: &         !! A=file       !! A-vector binary file to read.  Can have different configs
+     avectorfile(MXF)="Bin/avector.bin"          !!   but should have same number of electrons.   
+character (len=200) :: &         !! Spf=file     !! Spf file to read.  Can have fewer m vals, smaller radial 
+     spffile(MXF)="Bin/spfs.bin"                 !!   grid, or fewer than nspf total orbitals. 
 integer :: avecloadskip(100)=0
 integer :: numholes=0                            !! Load a-vector with this many more electrons and annihilate
 integer :: numholecombo=1                        !! Number of (products of) annihilation operators to combine 
@@ -396,6 +403,8 @@ integer :: orderflag=0           !! Order=       !! ordering of configs. 1= firs
 integer :: nonuc_checkflag=1     !!              !! Turn off deriv operators in nuclear dofs.
 
 !! INTERNAL
+
+integer :: eachloaded(MXF)=(-99)
 
 integer :: multmanyflag=0                     
 integer :: reducedpotsize = -1
