@@ -1,0 +1,165 @@
+
+  ** LBNL-AMO-MCTDHF VERSION 1.04 **
+
+Please watch the commits to stay notified about bugs and bug fixes:
+     https://github.com/LBNL-AMO-MCTDHF/V1/commits/master
+
+Known bugs appear as issues:
+     https://github.com/LBNL-AMO-MCTDHF/V1/issues
+
+STEP 1 OF README HAS BEEN IN ERROR.  FIXED May 16.
+
+Scripts, and the instructions below, are designed to be run in BASH.
+
+To begin a bash shell, if it is not your default, simply execute the command
+   prompt> bash
+
+To set bash as your default shell on mac or other linux, execute the command
+   prompt> chsh -s /bin/bash
+
+Lots of scripts use gnuplot.  Gnuplot should be installed on your system,
+   if you want to have an easy time using the examples.
+
+Possible workflow described below for mac.  The general idea is that you can 
+   work entirely within the directory that you clone and to which you pull, not 
+   copy the git distribution elsewhere for compilation.
+
+----------------------------------------------------------------------------
+
+On Mac: minimal demonstration.  BIN*mac* directories use GFORTRAN.  You must have
+gfortran installed to use the BIN*mac* directories.  To install gfortran -- which
+you will need to do if the Makeme step fails -- visit 
+
+     https://gcc.gnu.org/wiki/GFortranBinariesMacOS
+
+0)   git clone https://github.com/LBNL-AMO-MCTDHF/V1 master
+
+          or download using a web browser
+
+     https://github.com/LBNL-AMO-MCTDHF/V1/archive/master.zip
+          and unzip this file.
+
+     You then have a V1 or V1-master directory with the code in it.  change
+     to that directory:
+
+     cd ./V1
+         or
+     cd ./V1-master
+
+     and PERFORM ALL OTHER STEPS IN THIS V1 DIRECTORY.
+
+1)   cd COMPDIRS/BIN.ecs.hermnorm.mac
+     ./Makeme
+
+     if this fails, you need gfortran.
+
+2)   You need to have the code in your path.  Safe, temporary way:
+
+2A)  cd COMPDIRS/BIN.ecs.hermorm.mac
+     export PATH=$PATH:$PWD
+
+2B)  Permanent way:
+     Script is provided to put path in your .bashrc.
+     No Warranty Expressed Nor Implied.  Use at your own risk.
+
+     cd COMPDIRS
+     ./BASHRC.MAC.BAT
+
+2C)  Other permanent way listed at bottom
+
+3)   cp -R -p EXAMPLES-depot/H2PHOTO EXAMPLES
+
+4)   cd EXAMPLES/H2PHOTO
+     ./Relax.Bat
+     ./Pulse.Bat
+     ./Fourier.Bat 
+     ./Flux.Bat 500
+     ./gnu.xsec
+
+     as per the README in that H2PHOTO directory.
+ 
+If you want to update the code and EXAMPLES-depot directories then perform 
+step 5, like steps 1-4, in the V1 working directory,
+
+5)   git pull https://github.com/LBNL-AMO-MCTDHF/V1 master
+     ... then ./Makeme should be sufficient, in the BIN directories,
+         but ./Makeme clean; ./Makeme would certainly be fail safe
+         after updating the code with git pull.
+
+----------------------------------------------------------------------------
+XXSNIPXX
+
+Velocity gauge sinc DVR just implemented, not debugged nor checked for factors.
+
+MPI ORBITAL PARALLELIZATION for sinc dvr (chmctdhf_sinc) only with parorbsplit=3.
+  set both parorbsplit=3 in &parinp and orbparflag=.true. in &sincparinp.
+  When this is set:
+
+  RATE LIMITING STEP IN CODE (chmctdhf_sinc) AT SCALE: 
+
+     --> MPI PARALLEL KINETIC ENERGY MULTIPLICATION IN Z DIRECTION <--
+
+  FOUR OPTIONS for &sincparinp namelist variable zke_paropt:
+
+  zke_paropt=0   mult_circ_z      sendrecv
+  zke_paropt=1   mult_summa_z     SUMMA  scalable universal matrix multiplication 
+                                    algorithm (broadcast before)
+  zke_paropt=2   mult_reduce_z    reduce after (slow, generally, right?)
+  zke_paropt=3   mult_alltoall_z  Calculate everything, wasting memory, then 
+                                    perform all to all (previous subroutine)
+
+
+----------------------------    MODULES TO LOAD    -----------------------------
+---------------------------- ON NERSC & LAWRENCIUM -----------------------------
+
+  COMPDIRS/BIN.ecs.hermnorm.law, 
+  COMPDIRS/BIN.ecs.hermnorm.edison, etc.
+
+LAWRENCIUM:
+
+module load mkl
+
+CARVER:
+
+module unload pgi openmpi
+module load intel openmpi-intel mkl
+module unload torque
+module load torque
+
+HOPPER:
+
+module swap PrgEnv-pgi PrgEnv-intel
+#yes last
+module unload cray-libsci
+
+EDISON:
+
+module unload cray-libsci
+module load mkl
+
+----------------------------------------------------------------------------
+
+Better permanent way for step 2 in mac example above.
+
+2C) 
+
+> cd ~/
+> mkdir bin
+> cd bin
+> ln -s ~/progs/V1/COMPDIRS/BIN.ecs.hermnorm.mac/chmctdhf_sinc
+> ln -s ~/progs/V1/COMPDIRS/BIN.ecs.hermnorm.mac/chmctdhf_atom
+> ln -s ~/progs/V1/COMPDIRS/BIN.ecs.hermnorm.mac/chmctdhf_diatom
+
+optionally
+
+> ln -s ~/progs/V1/COMPDIRS/debug.BIN.ecs.hermnorm.mac/chmctdhf_sinc chmctdhf_sinc.debug
+> ln -s ~/progs/V1/COMPDIRS/debug.BIN.ecs.hermnorm.mac/chmctdhf_atom chmctdhf_atom.debug
+> ln -s ~/progs/V1/COMPDIRS/debug.BIN.ecs.hermnorm.mac/chmctdhf_diatom chmctdhf_diatom.debug
+
+then
+
+> cd ..        or cd ~/, same thing
+> cp -p .bashrc BACKUP.bashrc
+> echo 'export PATH=$PATH:~/bin/' >> .bashrc
+
+That's single quotes in the last step, i.e. double quotes without the shift key.

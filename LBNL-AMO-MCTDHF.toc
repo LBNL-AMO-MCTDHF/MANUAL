@@ -1,59 +1,59 @@
-\contentsline {section}{\numberline {0.1}Quick Install}{3}{section.0.1}
-\contentsline {section}{\numberline {0.2}Running the code}{4}{section.0.2}
-\contentsline {section}{\numberline {0.3}File system etiquette}{4}{section.0.3}
-\contentsline {section}{\numberline {0.4}Run Control}{4}{section.0.4}
-\contentsline {section}{\numberline {0.5}Changes from version 0}{5}{section.0.5}
-\contentsline {section}{\numberline {0.6}Optimizing your runs}{7}{section.0.6}
-\contentsline {section}{\numberline {0.7}Nomenclature}{9}{section.0.7}
-\contentsline {chapter}{\numberline {1}Installation}{11}{chapter.1}
-\contentsline {chapter}{\numberline {2}Input}{14}{chapter.2}
-\contentsline {section}{\numberline {2.1}Namelist input}{14}{section.2.1}
-\contentsline {section}{\numberline {2.2}Specifying the wave function}{14}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Symmetry constraints}{15}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Restricted configuration spaces}{15}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Specifying the initial orbitals}{17}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Frozen orbitals }{17}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {2.2.5}Specifying the initial A-vector}{18}{subsection.2.2.5}
-\contentsline {subsection}{\numberline {2.2.6}Annihilation}{18}{subsection.2.2.6}
-\contentsline {subsection}{\numberline {2.2.7}Excitation}{19}{subsection.2.2.7}
-\contentsline {section}{\numberline {2.3}Primitive basis and Hamiltonian}{19}{section.2.3}
-\contentsline {section}{\numberline {2.4}Propagation parameters}{20}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Analyzing the propagation}{20}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Using sparse configuration routines}{20}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Action input }{20}{section.2.5}
-\contentsline {section}{\numberline {2.6}Complete list of namelist variables}{20}{section.2.6}
-\contentsline {chapter}{\numberline {3}Output }{30}{chapter.3}
-\contentsline {section}{\numberline {3.1}Action output (incomplete list)}{31}{section.3.1}
-\contentsline {chapter}{\numberline {4}Types of calculation}{33}{chapter.4}
-\contentsline {section}{\numberline {4.1}Relaxation calculation}{33}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Utility}{35}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Pulse calculation}{35}{section.4.2}
-\contentsline {section}{\numberline {4.3}Propagation calculation, no pulse (fourier run)}{36}{section.4.3}
-\contentsline {section}{\numberline {4.4}Analysis / plotting}{36}{section.4.4}
-\contentsline {chapter}{\numberline {5}Actions}{37}{chapter.5}
-\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{37}{section.5.1}
-\contentsline {section}{\numberline {5.2}Saving orbitals (actions 2-4) and plotting orbitals (actions 8-10)}{38}{section.5.2}
-\contentsline {section}{\numberline {5.3}Flux and projected flux for photoionization (actions 15, 16, 17)}{38}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Options for saving wave function during propagation (Action 15) }{38}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Total photoionization (Action 16)}{39}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Partial photoionization (Action 17)}{40}{subsection.5.3.3}
-\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{40}{section.5.4}
-\contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption (action 21)}{41}{section.5.5}
-\contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{41}{section.5.6}
-\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{41}{section.5.7}
-\contentsline {section}{\numberline {5.8}Unsupported/deprecated actions}{41}{section.5.8}
-\contentsline {chapter}{\numberline {6}Viewing the output}{42}{chapter.6}
-\contentsline {section}{\numberline {6.1}Two auxillary files}{42}{section.6.1}
-\contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{42}{section.6.2}
-\contentsline {chapter}{\numberline {7}Examples}{46}{chapter.7}
-\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2PHOTO, HEPHOTO, O2-photo }{46}{section.7.1}
-\contentsline {section}{\numberline {7.2}Transient absorption/emission and wave mixing}{48}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}O2.transient.absorption.ONE}{48}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}2D spectra for O$_2$ and He}{48}{subsection.7.2.2}
-\contentsline {chapter}{\numberline {8}Programmers' guide}{49}{chapter.8}
-\contentsline {section}{\numberline {8.1}Main program files}{50}{section.8.1}
-\contentsline {section}{\numberline {8.2}Project directories}{52}{section.8.2}
-\contentsline {section}{\numberline {8.3}About the Makefile and Makeme}{52}{section.8.3}
-\contentsline {section}{\numberline {8.4}Important variables}{53}{section.8.4}
-\contentsline {section}{\numberline {8.5}Project directories}{53}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}Functions/subroutines that are necessary to define}{53}{subsection.8.5.1}
+\contentsline {section}{\numberline {0.1}Git install}{4}{section.0.1}
+\contentsline {section}{\numberline {0.2}Running the code}{7}{section.0.2}
+\contentsline {section}{\numberline {0.3}File system etiquette}{7}{section.0.3}
+\contentsline {section}{\numberline {0.4}Run Control}{7}{section.0.4}
+\contentsline {section}{\numberline {0.5}Changes from version 0}{7}{section.0.5}
+\contentsline {section}{\numberline {0.6}Optimizing your runs}{9}{section.0.6}
+\contentsline {section}{\numberline {0.7}Nomenclature}{12}{section.0.7}
+\contentsline {chapter}{\numberline {1}Installation}{13}{chapter.1}
+\contentsline {chapter}{\numberline {2}Input}{16}{chapter.2}
+\contentsline {section}{\numberline {2.1}Namelist input}{16}{section.2.1}
+\contentsline {section}{\numberline {2.2}Specifying the wave function}{16}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Symmetry constraints}{17}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Restricted configuration spaces}{17}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Specifying the initial orbitals}{19}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Frozen orbitals }{19}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Specifying the initial A-vector}{20}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Annihilation}{20}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}Excitation}{21}{subsection.2.2.7}
+\contentsline {section}{\numberline {2.3}Primitive basis and Hamiltonian}{21}{section.2.3}
+\contentsline {section}{\numberline {2.4}Propagation parameters}{22}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Analyzing the propagation}{22}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Using sparse configuration routines}{22}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Action input }{22}{section.2.5}
+\contentsline {section}{\numberline {2.6}Complete list of namelist variables}{22}{section.2.6}
+\contentsline {chapter}{\numberline {3}Output }{32}{chapter.3}
+\contentsline {section}{\numberline {3.1}Action output (incomplete list)}{33}{section.3.1}
+\contentsline {chapter}{\numberline {4}Types of calculation}{35}{chapter.4}
+\contentsline {section}{\numberline {4.1}Relaxation calculation}{35}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Utility}{37}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Pulse calculation}{37}{section.4.2}
+\contentsline {section}{\numberline {4.3}Propagation calculation, no pulse (fourier run)}{38}{section.4.3}
+\contentsline {section}{\numberline {4.4}Analysis / plotting}{38}{section.4.4}
+\contentsline {chapter}{\numberline {5}Actions}{39}{chapter.5}
+\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{39}{section.5.1}
+\contentsline {section}{\numberline {5.2}Saving orbitals (actions 2-4) and plotting orbitals (actions 8-10)}{40}{section.5.2}
+\contentsline {section}{\numberline {5.3}Flux and projected flux for photoionization (actions 15, 16, 17)}{40}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Options for saving wave function during propagation (Action 15) }{40}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Total photoionization (Action 16)}{41}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Partial photoionization (Action 17)}{42}{subsection.5.3.3}
+\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{42}{section.5.4}
+\contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption (action 21)}{43}{section.5.5}
+\contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{43}{section.5.6}
+\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{43}{section.5.7}
+\contentsline {section}{\numberline {5.8}Unsupported/deprecated actions}{43}{section.5.8}
+\contentsline {chapter}{\numberline {6}Viewing the output}{44}{chapter.6}
+\contentsline {section}{\numberline {6.1}Two auxillary files}{44}{section.6.1}
+\contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{44}{section.6.2}
+\contentsline {chapter}{\numberline {7}Examples}{48}{chapter.7}
+\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2PHOTO, HEPHOTO, O2-photo }{48}{section.7.1}
+\contentsline {section}{\numberline {7.2}Transient absorption/emission and wave mixing}{50}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}O2.transient.absorption.ONE}{50}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}2D spectra for O$_2$ and He}{50}{subsection.7.2.2}
+\contentsline {chapter}{\numberline {8}Programmers' guide}{51}{chapter.8}
+\contentsline {section}{\numberline {8.1}Main program files}{52}{section.8.1}
+\contentsline {section}{\numberline {8.2}Project directories}{54}{section.8.2}
+\contentsline {section}{\numberline {8.3}About the Makefile and Makeme}{54}{section.8.3}
+\contentsline {section}{\numberline {8.4}Important variables}{55}{section.8.4}
+\contentsline {section}{\numberline {8.5}Project directories}{55}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}Functions/subroutines that are necessary to define}{55}{subsection.8.5.1}

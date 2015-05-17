@@ -165,70 +165,109 @@ This project is dedicated to the memory of Donovan Emil Smith.
 
 
 \chapter*{Preliminaries}
-\section{Quick Install}
 
-The code is provided with the following directory structure.  
+
+\section{Git install}
+
+The code is distributed through GitHub.com.
+Please visit 
+\begin{quote}
+    \verb#http://commons.lbl.gov/display/csd/LBNL-AMO-MCTDHF#
+\end{quote}
+to request access to the code.
+Send us a message via this website.   We will receive the message and 
+you will be added to Team Users on the LBNL-AMO-MCTDHF GitHub organization.  You will get an
+email invitation when this happens.
 %
-{\footnotesize
-\begin{verbatim}
-prompt> tar -xvf MCTDHF.010115.VERSION1.0.tar.gz
-prompt> cd MCTDHF.010115.VERSION1.0
-prompt> ls
-   LBNL-AMO-MCTDHF.pdf
-   EXAMPLES
-   JOB_SETUP_SCRIPTS
-      TEMPLATES
-   MCTDH.SRC
-   COMPDIRS
-      MCTDH.SRC -> ../MCTDH.SRC
-      BIN.ecs.hermnorm.law.openmp.nofft
-      debug.BIN.ecs.hermnorm.mac
-      BIN.mac
-      BIN.ecs.hermnorm.edison
-\end{verbatim}}
+Then you can view the repository on your browser
+\begin{quote}
+    \verb#https://github.com/LBNL-AMO-MCTDHF/V1#
+\end{quote}
+and perform a git clone to obtain the code.
+\begin{quote} 
+    \verb#prompt> git clone https://github.com/LBNL-AMO-MCTDHF/V1 master#
+\end{quote}
 %
-etc.
+Instead of git clone, you can download the zipfile
+%
+\begin{quote} 
+    \verb#https://github.com/LBNL-AMO-MCTDHF/V1/archive/master.zip#
+\end{quote}
+The \verb#README# that is visible on the website and included with the code is included below, and includes quick installation
+instructions for mac.
 
-There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIRS#.  
-The \verb#MCTDH.SRC# directory at top level contains the actual hard copy of the fortran code.  The code is NOT compiled in \verb#MCTDH.SRC#.
-There are many compilation directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIRS#.  
-There are optimized versions, and versions with debugging flags.  Please compile the debugging version too and use it if the code
-seems to be producing an invalid or unstable result, or actually crashes.  The supported machines, the machines with ready-to-go
-directories in \verb#COMPDIRS#, are 
-\begin{itemize}
-\item{Lawrencium (extension \verb#.law#, e.g. \verb#BIN.ecs.hermnorm.law.openmp.nofft#).  Intel sandybridge, intel fortran compiler with mkl.}
-\item{Edison on NERSC (extension \verb#.edison#, e.g. \verb#debug.BIN.ecs.hermnorm.edison#)}
-\item{Mac (extension \verb#.mac#, e.g. \verb#debug.BIN.mac#)}
-\end{itemize}
 
-You may delete the directories in \verb#COMPDIRS# that you don't want.
+\include{README}
 
-All you need to do is go to the \verb#BIN# directory you want and run \verb#./Makeme#.  The code should then be compiled as, e.g.
-{\footnotesize
-\begin{verbatim}
-prompt> mv COMPDIRS/*BIN*mac* .
-prompt> rm -r COMPDIRS/*
-prompt> mv *BIN*mac* COMPDIRS
-prompt> cd COMPDIRS/BIN.ecs.hermnorm.mac
-prompt> ./Makeme
-prompt> ls
-      .
-      .
-chmctdhf_sinc
-chmctdhf_diatom
-chmctdhf_atom
-\end{verbatim}}
 
-Then you need to put the three programs in your \verb#$PATH# somehow so that you can use them in any working directory.  We recommend e.g.
-{\footnotesize
-\begin{verbatim}
-prompt> echo $PATH
-  /usr/bin:/usr/sbin:/opt/local/bin:/home/me/bin
-prompt> cd ~/bin
-prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/BIN.ecs.hermnorm/chmctdhf_diatom ./chmctdhf_diatom
-prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/debug.BIN/mctdhf_sinc ./mctdhf_sinc.debug
-\end{verbatim}}
-etc.
+
+%%
+%%
+%%\section{Quick Install}
+%%
+%%The code is provided with the following directory structure.  
+%%%
+%%{\footnotesize
+%%\begin{verbatim}
+%%prompt> tar -xvf MCTDHF.010115.VERSION1.0.tar.gz
+%%prompt> cd MCTDHF.010115.VERSION1.0
+%%prompt> ls
+%%   LBNL-AMO-MCTDHF.pdf
+%%   EXAMPLES
+%%   JOB_SETUP_SCRIPTS
+%%      TEMPLATES
+%%   MCTDH.SRC
+%%   COMPDIRS
+%%      MCTDH.SRC -> ../MCTDH.SRC
+%%      BIN.ecs.hermnorm.law.openmp.nofft
+%%      debug.BIN.ecs.hermnorm.mac
+%%      BIN.mac
+%%      BIN.ecs.hermnorm.edison
+%%\end{verbatim}}
+%%%
+%%etc.
+%%
+%%There are three directories at top level, \verb#MCTDH.SRC#, \verb#EXAMPLES#, and \verb#COMPDIRS#.  
+%%The \verb#MCTDH.SRC# directory at top level contains the actual hard copy of the fortran code.  
+%%The code is NOT compiled in \verb#MCTDH.SRC#.
+%%There are many compilation directories ready-to-go for installation of the code on various machines, provided in \verb#COMPDIRS#.  
+%%There are optimized versions, and versions with debugging flags.  Please compile the debugging version too and use it if the code
+%%seems to be producing an invalid or unstable result, or actually crashes.  The supported machines, the machines with ready-to-go
+%%directories in \verb#COMPDIRS#, are 
+%%\begin{itemize}
+%%\item{Lawrencium (extension \verb#.law#, e.g. \verb#BIN.ecs.hermnorm.law.openmp.nofft#).  Intel sandybridge, intel fortran compiler with mkl.}
+%%\item{Edison on NERSC (extension \verb#.edison#, e.g. \verb#debug.BIN.ecs.hermnorm.edison#)}
+%%\item{Mac (extension \verb#.mac#, e.g. \verb#debug.BIN.mac#)}
+%%\end{itemize}
+%%
+%%You may delete the directories in \verb#COMPDIRS# that you don't want.
+%%
+%%All you need to do is go to the \verb#BIN# directory you want and run \verb#./Makeme#.  The code should then be compiled as, e.g.
+%%{\footnotesize
+%%\begin{verbatim}
+%%prompt> mv COMPDIRS/*BIN*mac* .
+%%prompt> rm -r COMPDIRS/*
+%%prompt> mv *BIN*mac* COMPDIRS
+%%prompt> cd COMPDIRS/BIN.ecs.hermnorm.mac
+%%prompt> ./Makeme
+%%prompt> ls
+%%      .
+%%      .
+%%chmctdhf_sinc
+%%chmctdhf_diatom
+%%chmctdhf_atom
+%%\end{verbatim}}
+%%
+%%Then you need to put the three programs in your \verb#$PATH# somehow so that you can use them in any working directory.  We recommend e.g.
+%%{\footnotesize
+%%\begin{verbatim}
+%%prompt> echo $PATH
+%%  /usr/bin:/usr/sbin:/opt/local/bin:/home/me/bin
+%%prompt> cd ~/bin
+%%prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/BIN.ecs.hermnorm/chmctdhf_diatom ./chmctdhf_diatom
+%%prompt> ln -s ~/myprogs/LBNL-AMO-MCTDHF/V1.0.INTELFFT/COMPDIRS/debug.BIN/mctdhf_sinc ./mctdhf_sinc.debug
+%%\end{verb atim}}
+%%etc.
 
 \section{Running the code}
 
