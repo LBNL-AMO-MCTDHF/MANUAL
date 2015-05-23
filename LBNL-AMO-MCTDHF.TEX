@@ -93,7 +93,7 @@ Some of the largest nuts and bolts are due to
 representation in prolate spheroidal coordinates.}  L. Tao, C. W. McCurdy, T. N. Rescigno, Phys. Rev. A 79, 012719 (2009)}
 \item{\textit{An efficient basis set representation for calculating electrons in molecules.}
 J. R. Jones, F.-H. Rouet, K. V. Lawler, E. Vecharynski, 
-C. W. McCurdy, C. Yang, K. Ibrahim, S. Williams,  X. Li, B. Abeln, D. J. Haxton,  T. N. Rescigno, in preparation.}        
+ K. Ibrahim, S. Williams, B. Abeln, C. Yang,  D. J. Haxton, C. W. McCurdy, X. Li,  T. N. Rescigno, submitted.}        
         %
 % Numerical grid methods for quantum-mechanical scattering problems 
 %T. N. Rescigno1,2 and C. W. McCurdy2,3
@@ -341,6 +341,9 @@ grid spacing in the input file (e.g. \verb#spacing=0.5d0#) by setting \verb#rein
 \textbf{This is very useful} if you are trying to get an initial state eigenfunction for a very large calculation.  Starting with core orbitals
 takes too long, so you want to reinterpolate a prior solution for the orbitals onto the finer grid.  You can now do this, but only reinterpolating
 on a grid with $\frac{1}{2}$ the grid spacing as the first.  See example directories such as \verb#EXAMPLES/HELIUM-INTERPTEST3#.}
+\item{There are options for a complex absorbing potential, CAP.}
+\item{There is also an attempt at smooth complex scaling, now, for \verb#chmcthdf_sinc#, in which the $x$, $y$, and $z$
+coodinates are separately scaled; you can make the coordinates real at the nuclei.  It does not perform well, however.}
 \end{itemize}
 }
 %
@@ -1840,10 +1843,9 @@ In order to calculate projected flux one must calculate the final $(N-1)$-electr
 the files \verb#Bin/cation.spfs.bin# and \verb#Bin/cation.avector.bin#.  The setting of these filenames is not supported at this time.
 
 One does this with a relaxation run.
-The relaxation run can be used in the usual mode or in the mcscf mode, which is described below.  After you perform the $(N-1)$-electron
+After you perform the $(N-1)$-electron
 relaxation, one must rename the binary files so that they may be read by the flux calculation.  You add the prefix ``\verb#cation.#'' at the start
-of the filename.  Thus you would have \verb#cation.spfs.bin# and \verb#cation.avector.bin#, or \verb#cation.mcscf.bin#.   In order to project
-on multiple final states one must use the mcscf option.
+of the filename.  Thus you would have \verb#cation.spfs.bin# and \verb#cation.avector.bin#.   
 
 \
 
@@ -1852,13 +1854,18 @@ Projected flux produces files \verb#xsec.proj.spi.datN# with \verb#N# being the 
 \section{Calculating overlaps with given wave functions (action 20)}
 
 Using action 20 one may read in wave functions at the start of the calculation and calculate their overlaps with $\Psi(t)$.
+%
+Perform one or more relaxation calculations to obtain the states upon which you want to project.  Then, to read them in your
+propagation run, include the following.
 
-Perform one or more MCSCF calculations to obtain mcscf.bin files.  Specify
 \begin{quote}
 {\footnotesize
 \verb#&parinp# \\
+\verb#  numactions=1#\\
+\verb#  actions=20# \\
 \verb#  numovlfiles=2# \\
-\verb#  ovlfiles="ovl.mcscf.bin.sigma","ovl.mcscf.bin.pi"# \\
+\verb#  ovlspffiles(1:2)="spfs.bin.sigma","spfs.bin.pi"# \\
+\verb#  ovlavectorfiles(1:2)="avector.bin.sigma","avector.bin.pi"# \\
 }\end{quote}
 
 
