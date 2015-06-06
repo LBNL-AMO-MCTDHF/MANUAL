@@ -25,7 +25,7 @@ of atoms and molecules in intense laser fields \\
 ~ \\
 ~ \\
 ~ \\
-Version 1.05 \\
+Version 1.06 \\
 ~ \\
 %Atomic / Diatomic Rovibronic / Polyatomic Vibronic \\
 Atomic / Diatomic Vibronic / Polyatomic Fixed-Nuclei \\
@@ -332,8 +332,9 @@ A running calculation can be stopped by creating a file named \verb#stop# in its
 namelist \verb#&sinc_params# to do this.  
 For the other versions of the code (\verb#chmctdhf_atom# and \verb#chmctdhf_diatom#) option \verb#parorbsplit=3# is not
 supported and will result in an error.  If these options are set, \verb#numpoints# needs to be divisible by the number of processors.}
-\item{Always use \verb#toepflag=1# in
-\verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
+%
+%\item{Always use \verb#toepflag=1# in
+%\verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
 \item{Velocity gauge was just implemented and barely tested; the factors might be right, but probably not.}
 \item{Only cubic grids are supported.  There is only one variable, \verb#numpoints#, number of points on a side.}
 \item{You can read in orbitals computed at double the grid spacing (e.g. \verb#spacing=1.0d0#) for a calculation at the current
