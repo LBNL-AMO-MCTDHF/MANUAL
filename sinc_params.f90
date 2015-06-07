@@ -6,6 +6,7 @@ implicit none
 
 !! FOR TOTAL ORBITAL PARALLELIZATION, SET orbparflag=.true., AND parorbsplit=3 in &parinp
 logical :: orbparflag=.false.
+!! integer :: orbparlevel=3  !!  in namelist, but not in myparams
 
 !! THE FOLLOWING FLAG IS THEN RELEVANT.  Option for parallel KE matvec, rate limiting step.
 integer :: zke_paropt=1   !! 0=sendrecv 1=SUMMA (bcast before) 2=reduce after
@@ -69,11 +70,6 @@ integer :: scalingorder=2          !! should be 2 or greater!
 !!real*8 :: ecstheta=0d0             !! X(x)= x + e^(i ecstheta)*sum_j scalingterms(j,1) x^(j-1)
 
 
-integer,parameter :: nullfileptr=798
-
-  integer :: myrank=(-1),nprocs=(-1)
-
-
 
 integer :: notwoflag=0
   integer :: numspf=-1
@@ -81,7 +77,6 @@ integer :: nbox(100)=1  !! BOXES FOR PAR.
 
 integer :: griddim=3, ccc=0
 
-integer :: mpifileptr=-1
 
 integer :: gridpoints(100)=10,totpoints=-1,maxgridpoints=-99
 
