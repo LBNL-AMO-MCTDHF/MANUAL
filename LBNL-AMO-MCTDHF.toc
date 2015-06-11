@@ -1,27 +1,27 @@
-\contentsline {section}{\numberline {0.1}Git install}{4}{section.0.1}
-\contentsline {section}{\numberline {0.2}Running the code}{8}{section.0.2}
-\contentsline {section}{\numberline {0.3}File system etiquette}{8}{section.0.3}
-\contentsline {section}{\numberline {0.4}Run Control}{8}{section.0.4}
-\contentsline {section}{\numberline {0.5}Changes from version 0}{8}{section.0.5}
-\contentsline {section}{\numberline {0.6}Optimizing your runs}{10}{section.0.6}
-\contentsline {section}{\numberline {0.7}Nomenclature}{13}{section.0.7}
-\contentsline {chapter}{\numberline {1}Installation}{15}{chapter.1}
-\contentsline {chapter}{\numberline {2}Input}{18}{chapter.2}
-\contentsline {section}{\numberline {2.1}Namelist input}{18}{section.2.1}
-\contentsline {section}{\numberline {2.2}Specifying the wave function}{18}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Symmetry constraints}{19}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Restricted configuration spaces}{19}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Specifying the initial orbitals}{21}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Frozen orbitals }{21}{subsection.2.2.4}
-\contentsline {subsection}{\numberline {2.2.5}Specifying the initial A-vector}{22}{subsection.2.2.5}
-\contentsline {subsection}{\numberline {2.2.6}Annihilation}{22}{subsection.2.2.6}
-\contentsline {subsection}{\numberline {2.2.7}Excitation}{23}{subsection.2.2.7}
-\contentsline {section}{\numberline {2.3}Primitive basis and Hamiltonian}{23}{section.2.3}
-\contentsline {section}{\numberline {2.4}Propagation parameters}{24}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Analyzing the propagation}{24}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Using sparse configuration routines}{24}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Action input }{24}{section.2.5}
-\contentsline {section}{\numberline {2.6}Complete list of namelist variables}{24}{section.2.6}
+\contentsline {section}{\numberline {0.1}Git install}{3}{section.0.1}
+\contentsline {section}{\numberline {0.2}Running the code}{7}{section.0.2}
+\contentsline {section}{\numberline {0.3}File system etiquette}{7}{section.0.3}
+\contentsline {section}{\numberline {0.4}Run Control}{7}{section.0.4}
+\contentsline {section}{\numberline {0.5}Changes from version 0}{7}{section.0.5}
+\contentsline {section}{\numberline {0.6}Optimizing your runs}{9}{section.0.6}
+\contentsline {section}{\numberline {0.7}Nomenclature}{12}{section.0.7}
+\contentsline {chapter}{\numberline {1}Installation}{14}{chapter.1}
+\contentsline {chapter}{\numberline {2}Input}{17}{chapter.2}
+\contentsline {section}{\numberline {2.1}Namelist input}{17}{section.2.1}
+\contentsline {section}{\numberline {2.2}Specifying the wave function}{17}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Symmetry constraints}{18}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Restricted configuration spaces}{18}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Specifying the initial orbitals}{20}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Frozen orbitals }{20}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Specifying the initial A-vector}{21}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Annihilation}{21}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}Excitation}{22}{subsection.2.2.7}
+\contentsline {section}{\numberline {2.3}Primitive basis and Hamiltonian}{22}{section.2.3}
+\contentsline {section}{\numberline {2.4}Propagation parameters}{23}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Analyzing the propagation}{23}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Using sparse configuration routines}{23}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Action input }{23}{section.2.5}
+\contentsline {section}{\numberline {2.6}Complete list of namelist variables}{23}{section.2.6}
 \contentsline {chapter}{\numberline {3}Output }{34}{chapter.3}
 \contentsline {section}{\numberline {3.1}Action output (incomplete list)}{35}{section.3.1}
 \contentsline {chapter}{\numberline {4}Types of calculation}{37}{chapter.4}
