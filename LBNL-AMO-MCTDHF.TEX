@@ -25,7 +25,7 @@ of atoms and molecules in intense laser fields \\
 ~ \\
 ~ \\
 ~ \\
-Version 1.07 \\
+Version 1.10 \\
 ~ \\
 %Atomic / Diatomic Rovibronic / Polyatomic Vibronic \\
 Atomic / Diatomic Vibronic / Polyatomic Fixed-Nuclei \\
@@ -335,16 +335,9 @@ supported and will result in an error.  If these options are set, \verb#numpoint
 %
 %\item{Always use \verb#toepflag=1# in
 %\verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
-\item{Velocity gauge was just implemented and barely tested; the factors might be right, but probably not.}
 \item{Only cubic grids are supported.  There is only one variable, \verb#numpoints#, number of points on a side.}
-\item{You can read in orbitals computed at double the grid spacing (e.g. \verb#spacing=1.0d0#) for a calculation at the current
-grid spacing in the input file (e.g. \verb#spacing=0.5d0#) by setting \verb#reinterp_orbflag=1# in namelist \verb#&parinp#.  
-\textbf{This is very useful} if you are trying to get an initial state eigenfunction for a very large calculation.  Starting with core orbitals
-takes too long, so you want to reinterpolate a prior solution for the orbitals onto the finer grid.  You can now do this, but only reinterpolating
-on a grid with $\frac{1}{2}$ the grid spacing as the first.  See example directories such as \verb#EXAMPLES/HELIUM-INTERPTEST3#.}
-\item{There are options for a complex absorbing potential, CAP.}
-\item{There is also an attempt at smooth complex scaling, now, for \verb#chmcthdf_sinc#, in which the $x$, $y$, and $z$
-coodinates are separately scaled; you can make the coordinates real at the nuclei.  It does not perform well, however.}
+\item{There are options for a complex absorbing potential, CAP, and approximate exterior complex scaling, 
+ECS, in which the Coulomb operators are not scaled.}
 \end{itemize}
 }
 %
@@ -1502,7 +1495,7 @@ multiple pulses.
 
 The intensity is in units of 10$^{16}$ W cm$^{-2}$.  It is converted to \verb#pulsestrength#, which is the coefficient of the pulse waveform in the velocity 
 gauge, and which may alternately be specified in the namelist.  The pulse waveform is output in \verb#Pulse.Dat# and its Fourier transform 
-in \verb#PulseFT.Dat#.  The window for the output of the fourier transform is set with variables \verb#efluxlo# and \verb#efluxhi# in \verb#&parinp#.
+in \verb#PulseFT.Dat#.  
 
 \
 
@@ -1662,19 +1655,6 @@ calculation is running.
 \verb#spifile#  &  Output for the analysis run (act=16): total photoionization.  Default ``xsec.spi.dat'' \\
 \verb#eground# & Ground state energy.  Important!  Sets zero of photon energy for cross sections. \\
 \verb#computeFlux#  & Batch memory size (MB)  0=all in core\\
-\end{tabular}}
-
-\
-
-The range and resolution of output for actions 16 and 17 is set as follows,
-
-\
-
-{\footnotesize
-\begin{tabular}{ll}
-\verb#nEFlux#  & Number of energies at which to calculate the flux\\
-\verb#EFluxLo#  & Lowest photon energy \\
-\verb#EFluxHi#  & Highest photon energy (\") \\
 \end{tabular}}
 
 \
