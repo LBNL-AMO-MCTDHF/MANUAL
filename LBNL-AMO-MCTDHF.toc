@@ -41,7 +41,8 @@
 \contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption (action 21)}{45}{section.5.5}
 \contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{45}{section.5.6}
 \contentsline {section}{\numberline {5.7}Keprojector (action 24)}{45}{section.5.7}
-\contentsline {section}{\numberline {5.8}Unsupported/deprecated actions}{45}{section.5.8}
+\contentsline {section}{\numberline {5.8}Make psistats.dat (action 25)}{45}{section.5.8}
+\contentsline {section}{\numberline {5.9}Unsupported/deprecated actions}{45}{section.5.9}
 \contentsline {chapter}{\numberline {6}Viewing the output}{46}{chapter.6}
 \contentsline {section}{\numberline {6.1}Two auxillary files}{46}{section.6.1}
 \contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{46}{section.6.2}

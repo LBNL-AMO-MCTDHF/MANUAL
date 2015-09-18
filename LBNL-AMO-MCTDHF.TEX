@@ -1439,6 +1439,9 @@ lowest states aren't being calculated, \verb#improvedquadflag#=1 or 3 must be in
 When doing a MCSCF calculation, one often wants wave functions with different $M$-values.  Thus, \verb#mrestrictflag=0# must be set to include all these configurations.  However, \verb#spfrestrictflag# should in most cases be set to one so that the orbitals have good $m$ quantum numbers.  And, one can use
 \verb#mrestrictmin# and \verb#mrestrictmax# as above.
 
+As of version 1.10 a file is produced, \verb#Dat/finalstats.dat#, after relaxation calculations, which contains information about the symmetry and matrix elements of the final
+state(s) and orbitals.  The filename can be changed by setting variable \verb#finalstatsfile# in namelist \verb#&parinp# to another value.
+
 \subsection{Utility}
 
 There is a program \verb#MCSCF-matel# that may be compiled and used to compute matrix elements between mcscf wavefunctions (in \verb#mcscf.bin#
@@ -1622,6 +1625,7 @@ or in namelist \verb#&parinp#, e.g. \verb#numactions=3#, \verb#actions=1,2,4#.
 !!   Act=23   Enter plotting/analysis mode and read flux.bin files from Act=15 for overlaps                                              
 !!                 between two time dependent wave functions                                                                             
 !!   Act=24   keprojector  
+!!   Act=25   make psistats.dat
 \end{verbatim}}
 %\end{tabular}
 \end{quote}
@@ -1867,6 +1871,13 @@ xxx
 \section{Keprojector (action 24)}
 
 xxx
+
+
+\section{Make psistats.dat (action 25)}
+
+In version 0 until version 1.09, file \verb#Dat/psistats.dat# (this is variable \verb#psistatsfile# in name list \verb#&parinp#) was produced or not produced
+according to the value of variable \verb#notiming#.  In version 1 it was mostly gutted.  As of version 1.10 it is now created by action 25 and again
+contains useful information about the symmetry and expectation value(s) of the wave function(s) being propagated.  
 
 \section{Unsupported/deprecated actions}
 
