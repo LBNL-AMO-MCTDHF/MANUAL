@@ -126,7 +126,6 @@ integer :: ugrestrictval=1       !!              !!    like mrestrictval but for
 integer :: restrictflag=1        !!              !! Restrict spin projection of determinants?
 integer :: restrictms=0          !!              !! For restrictflag=1: 2*m_s: 2x total m_s (multiplicity of 
                                                  !!    lowest included spin states minus one)
-integer :: spinwalkflag=1        !!              !! Calculate spin info (required for below 2 options)
 integer :: allspinproject=1      !!              !! Constrain S(S+1) for propagation?
 integer :: spinrestrictval=0     !!              !! For allspinproject=1: determines spin. Default high spin S=M_s.
                                                  !!  To override use this variable. Equals 2S if S^2 eigval is S(S+1)
@@ -375,14 +374,13 @@ integer :: nonsparsepropmode=1   !! 0 = ZGCHBV expokit; 1 = mine expmat
 !!EE
 !! XXSNIPXX
 
-integer :: nodgexpthirdflag=0
+integer, parameter :: nodgexpthirdflag=1  !! =1 HARDWIRE 10-2015 not sure about dgexpthird
 
 !integer :: noorthogflag=1        !! 082010 NOW TURNING THIS ON !!
 !     hardwire.  eliminated realproject for quad which didn't have the 
 !     call to orthog.  don't remember if that was purposeful.
 !!integer :: cmfmode=0    !! experimental 1=new 0=old attempt 2=old with additional a-vector
 integer :: eigprintflag=0
-integer :: spineigflag=1
 !integer :: intopt=3              !! RK, GBS      !! SPF/VMF Integrator: 0, RK; 1, GBS, 2, DLSODPK  
 !                                                 !!  for CMF: 3=expo 4=verlet
 real*8 :: relerr=1.d-10          !!              !! relative error for integrator (RK/GBS/DLSODPK)
@@ -398,7 +396,7 @@ integer :: numfluxcurves(20)
 
 integer :: drivingmethod=0   !! 0 = V(t)  1 = H(t)-E
 integer :: connormflag=0  !! normalize columns for conway=1 or 3
-integer :: sortwalks=0
+integer :: sortwalks=1
 integer :: nonatrotate=0
 
 !!!!!  integer :: whichquad=1           !!     0=my eqn 1=rayleigh quotient  WHICHQUAD 1 HARDWIRE
@@ -430,16 +428,40 @@ DATATYPE, allocatable :: bondpoints(:),bondweights(:),elecweights(:,:,:), elecra
 real*8 :: langramthresh=1d-9
 integer :: numreduced=1
 integer :: headersize=200
-integer :: spinrank=-1, spinstart=-1, spinend=-1
+
 integer :: numconfig=-1
-integer, allocatable :: configsperproc(:)
+integer, allocatable :: configsperproc(:), alltopconfigs(:), allbotconfigs(:)
 integer ::       maxconfigsperproc
-integer, allocatable :: allspinranks(:), allspinstart(:)
-integer ::       maxspinrank
-integer :: firstspinconfig,lastspinconfig,localnspin
-integer :: botconfig,topconfig
-integer :: topwalk,botwalk  !! newwalks.f90, new mpi method distribute walks
+integer :: botconfig=-1,topconfig=-1
+integer :: configend=-1,configstart=-1
 integer :: firstconfig,lastconfig,localnconfig
+
+integer :: numspinconfig=0
+integer, allocatable :: spinsperproc(:), alltopspins(:), allbotspins(:)
+integer ::       maxspinsperproc
+integer :: botspin=-1,topspin=-1
+integer :: firstspinconfig,lastspinconfig,localnspin
+
+integer :: numdfconfigs=-1
+integer, allocatable :: dfconfsperproc(:), alltopdfconfigs(:), allbotdfconfigs(:)
+integer ::       maxdfconfsperproc
+integer :: botdfconfig=-1,topdfconfig=-1
+
+integer :: numspindfconfig=0
+integer, allocatable :: spindfsperproc(:), alltopspindfs(:), allbotspindfs(:)
+integer ::       maxspindfsperproc
+integer :: botdfspin=-1,topdfspin=-1
+
+integer :: numbasis=0
+integer, allocatable :: basisperproc(:)
+integer ::       maxbasisperproc
+integer :: botbasis=-1,topbasis=-1
+
+integer :: numdfbasis=0
+integer, allocatable :: dfbasisperproc(:)
+integer ::       maxdfbasisperproc
+integer :: botdfbasis=-1,topdfbasis=-1
+
 integer :: walksonfile=0       
 integer :: autosize, autosteps
 integer :: auto_biortho=1        !! do we want to use biorthonormalization or permutation overlaps? 0 perm overlaps, 1 biortho
@@ -449,9 +471,6 @@ integer :: lanagain = -1  !! Lanczos restart flag.  Default -1 (lanczos eigen re
                           !!    Otherwise, max number of maxlanorder full builds of krylov spaces (# restarts + 1)
                           !! Improved relax: starts at 1.  Incremented every time energy goes up with an iteration.
                           !!   If subsequent iters are within stopthresh, turned to -1. 
-integer :: spintotrank=0
-integer :: spintotdfrank=0
-integer :: numdfconfigs=-1, nondfconfigs=-1
 integer :: fluxsteps=1
 real*8 :: globaltime=0.d0   !! for ease of output
 !!! real*8 :: rcond=1.d-4      !! singular value for split operator cranck-nicholson
