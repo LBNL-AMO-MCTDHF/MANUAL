@@ -15,6 +15,9 @@ integer :: lancheckstep=20       !!              !! lanczos eigen routine checks
 real*8 :: lanthresh=1.d-9        !!              !! convergence criterion.
 end module lan_parameters
 module sparse_parameters
+integer :: sparseprime=1
+integer :: sparsesummaflag=0
+integer :: sparsedfflag=1
 integer :: sparseconfigflag=0    !! Sparse       !! Sparse configuration routines on or off (for large # configs)
 integer :: sparseopt =1                          !! 0= direct CI  1= sparse matrix algebra (faster, more memory)
 integer :: nonsparsepropmode=1   !! 0 = ZGCHBV expokit; 1 = mine expmat
@@ -116,15 +119,23 @@ integer :: conway=0                              !! for constraintflag=2, dirac 
                                                  !!   3=Lagrangian with epsilon times McLachlan
 real*8 :: conprop=1d-1                           !! epsilon for conway=3
 real*8 :: condamp=1
-integer :: connormflag=0  !! normalize columns for conway=1 or 3
 integer :: liosize
 end module constraint_parameters
 module denreg_parameters
 real*8 :: denreg=1d-10           !! Denreg=      !! density matrix regularization parameter.
 end module denreg_parameters
+module df_parameters
+\end{verbatim}
+!!{\large \quad CONFIGURATIONS}
+\begin{verbatim}
+integer :: df_restrictflag=0      !!              !! apply constraint to configuration list?  Must use this
+                                                 !!  option if constraintflag /= 0.  1 is sufficient;
+                                                 !!  dfrestrictflag=2 necessary for action 22. 
+                                                 !!  SEE MANUAL FOR PROPER USE OF dfrestrictflag/shell options.
+end module df_parameters
 module parameters
   use littleparmod;  use fileptrmod;  use r_parameters; use sparse_parameters;
-  use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters
+  use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters;use df_parameters
   implicit none
 \end{verbatim}
 !!{\large \quad MAIN PARAMETERS }
@@ -189,10 +200,6 @@ integer :: numfrozen=0           !!              !! number of doubly occ orbs (r
 \end{verbatim}
 !!{\large \quad CONFIGURATIONS}
 \begin{verbatim}
-integer :: df_restrictflag=0      !!              !! apply constraint to configuration list?  Must use this
-                                                 !!  option if constraintflag /= 0.  1 is sufficient;
-                                                 !!  dfrestrictflag=2 necessary for action 22. 
-                                                 !!  SEE MANUAL FOR PROPER USE OF dfrestrictflag/shell options.
 integer :: restrict_ms=0         !!              !! For restrictflag=1: 2*m_s: 2x total m_s (multiplicity of 
                                                  !!    lowest included spin states minus one)
 integer :: spin_restrictval=0    !!              !! For allspinproject=1: determines spin. Default high spin S=M_s.
