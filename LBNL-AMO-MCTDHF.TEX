@@ -25,7 +25,7 @@ of atoms and molecules in intense laser fields \\
 ~ \\
 ~ \\
 ~ \\
-Version 1.15 \\
+Version 1.16 \\
 ~ \\
 %Atomic / Diatomic Rovibronic / Polyatomic Vibronic \\
 Atomic / Diatomic Vibronic / Polyatomic Fixed-Nuclei \\
@@ -137,13 +137,6 @@ under U.S. D.O.E. contracts
 \#DE-FG02-94ER14413, % CHG
 \#DE-AC02-05CH11231, % LBNL AND NERSC BOTH
 and \#DE-SC-0007182. % UC Davis
-
-
-
-% SEVEN POSSIBLE: EARLY CAREER., CHG/SLAVA NSF; AMO BASE, UC DAVIS, LBNL GENERAL, NERSC GENERAL AS APPLICABLE.
-%%%%%
-%%%%%
-
 
 This project is dedicated to the memory of Donovan Emil Smith.
 
@@ -322,104 +315,105 @@ but make \textbf{symbolic links} to the scratch directory.  E.g.
 \section{Run Control}
 A running calculation can be stopped by creating a file named \verb#stop# in its working directory.  
 
-\section{Changes from version 0}
-
-\begin{itemize}
-%
-\item{There is a polyatomic version under development and compiled under \verb#chmctdhf_sinc#.  Namelist \verb#&sincparinp#.
-\begin{itemize}
-\item{This version is MPI parallelized over orbitals (totally).  Set both \verb#parorbsplit=3# in namelist \verb#&parinp# and \verb#orbparflag=.true.# in 
-namelist \verb#&sinc_params# to do this.  
-For the other versions of the code (\verb#chmctdhf_atom# and \verb#chmctdhf_diatom#) option \verb#parorbsplit=3# is not
-supported and will result in an error.  If these options are set, \verb#numpoints# needs to be divisible by the number of processors.}
-%
-%\item{Always use \verb#toepflag=1# in
-%\verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
-\item{Only cubic grids are supported.  There is only one variable, \verb#numpoints#, number of points on a side.}
-\item{There are options for a complex absorbing potential, CAP, and approximate exterior complex scaling, 
-ECS, in which the Coulomb operators are not scaled.}
-\end{itemize}
-}
-%
-\item{\verb#mcscfflag# is deprecated; there is no ``mcscf mode.''  There is still \verb#mcscfnum#, number of A-vectors relaxed or propagated.  
-\textbf{You can propagate multiple A-vectors} and this may be important for some cases ... will discuss.
-No \verb#mcscf.bin# is produced; everything is in \verb#spfs.bin# and \verb#avector.bin#.}
-%
-\item{There is the option \verb#littlesteps# to divide the A-vector propagation over the mean field timestep (\verb#par_timestep#).  This can be used
-to optimize for speed.  It is needed if you want to
-to try a big time step (\verb#par_timestep#) relative to the frequency of the pulse.  Big \verb#par_timestep#s are possible for weak pulses regardless of their
-frequency using
-\verb#littlesteps# $>$ 1. \textbf{Try bigger timesteps, with }\verb#littlesteps# $\mathbf{>}$\textbf{ 1, especially if your pulse is weak.} 
-E.g. \verb#par_timestep=0.5d0# and \verb#littlesteps=10#.  Yes, for propagation!}
-%
-\item{ 
-Try bigger time steps in general as lots of nuts and bolts have been tightened.  \verb#expotol# should be set low (stringent tolerance criterion), like 1d-8 or 1d-9, because
-in the end it goes faster for the entire run with a stringent criterion anyway.
-There is no need for \verb#exposteps# which has been deprecated.  But you may wish to optimize \verb#expodim# (starting Krylov dimension) and
-especially \verb#maxexpodim# (its maximum value).
-  If your orbital or a-vector iterations are restarting, as per \verb#expo.dat# or \verb#avecexpo.dat#, 
-  you should be sure \verb#maxexpodim# or \verb#maxaorder# is high (but not too 
-  high -- two or three hundred), but not worry if it is restarting after that.  See ``optimizing your runs'' below.}
-%
-\item{The variables \verb#nuccharge1#, \verb#nuccharge2#, \verb#lbig#, and \verb#mbig# are in namelist \verb#&heparinp# or \verb#&h2parinp#,
-not \verb#&parinp#.}
-%
-\item{All polarizations in both gauges are now possible using \verb#pulsetheta# and \verb#pulsephi#.  \verb#pulsestrength# is complex-valued, which 
-permits the use of nonphysical rotating waves.}
-%
-\item{\verb#whichprojflux# and \verb#corrflag# are deprecated.  The options for the Hanning window implemented by B. A. remain; 
-whereas they were \verb#corrflag#=3 or 4 before, now the variable is \verb#hanningflag#=3 or 4, with other values having no effect.}
-%
-\item{\verb#improvedquadflag=1# is the option for doing Newton solve for the A-vector to converge excited states.  Options 2 and 3 are NOW REINSTATED (for orbitals).  2 = orbitals, 3 = both.}
-\item{\verb#improvednatflag#=1 is fully debugged; it 
-and \verb#improvedquadflag#=1 can be set at the same time reliably.  Note the message ``Vectors converged on read'' when performing
-relaxation and \verb#sparseconfigflag#=1 that typically is printed each iteration as the relaxation is nearing convergence if one does
-not alter the default \verb#lanthresh=1d-9#, even with \verb#improvednatflag#=1.}
-%
-\end{itemize}
-%
-Less important
-\begin{itemize}
-%
-\item{\textbf{There is orbital parallelization.}  Running in parallel should speed the calculation regardless, unless you have a very small grid for the orbitals perhaps.
-Variable \verb#parorbsplit#, default 1 (parallel).  Note the \verb#MPI# column in file \verb#timings/actreduced.time.dat#.  Not all aspects of the multiplication are
-parallel; a good choice is \verb#nprocs#$=q\times$\verb#nspf#, with $q$ integer; then \verb#q# copies of the orbitals are propagated and MPI communication is among groups of
-\verb#nspf# processors.}
-%
-\item{\verb#expodim# is now the starting dimension of the orbital propagation, and new variable \verb#maxexpodim# is its maximum value.  Likewise for \verb#aorder# and the new variable \verb#maxaorder#.}
-%
-\item{The nature of the stopping criterion \verb#stopthresh# for relaxation has been changed.  It now is independent of time step and a function of the rate of change of the orbitals.  It is more robust.  A typical value of 10$^{-5}$ should be good, 10$^{-4}$ for hard cases; as low as 10$^{-7}$ should work if you want to be sure things are converged.}
-%
-\item{Restricted configuration lists are good to go with \verb#constraintflag#=1 or 2, density matrix or Dirac-Frenkel.  BOTH require \verb#dfrestrictflag#=1 or greater.}
-%
-\item{There is a \verb#numskiporbs# variable in \verb#&parinp#, and \verb#num_skip_orbs# in \verb#&h2parinp# / \verb#&heparinp#.  They have different meanings: 
-orbitals on file to skip, in the first case, and core orbitals to skip per m value for the generation of initial orbitals, in the latter cases.}
-\end{itemize}
-%
-Even less important
-%
-\begin{itemize}
-%
-\item{There is the flag \verb#orbcompact# in \verb#&parinp# set by default to zero.  This is a new option; you can try it if you want.
-When spfrestrictflag.ne.0, i.e., when there are symmetry restrictions on the orbitals, and \verb#mbig# is not zero, we believe you can now do things
-the fully best way by setting \verb#orbcompact=1#.  Things probably won't change, and it is not extensively debugged.  But, you will probably notice that it takes
-fewer steps occasionally, if you examine \verb#expo.dat#.  Usually, it will be the same number of steps, and if you are doing things correctly with tight
-error tolerances, all the numbers, the results, will probably be exactly the same.  \textbf{Calculations in which the Hamiltonian does not conserve the symmetries 
-imposed on the orbitals are now possible.}  We believe it is programmed it up correctly.  In other words, with \verb#orbcompact=1#, \verb#spfrestrictflag=1#,
-\verb#spfugrestrict=1#, a calculation done with a heteronuclear diatomic, or a pulse, is being done correctly, we hope.  
-With \verb#orbcompact=0#, it is not.
-This is exotic; don't try it without discussing it; we want to do it to see if we can get the Fluorine atom to photoionize correctly.}
-%
-\item{\verb#timefac# is set internally according to \verb#improvedrelaxflag#.  Has no effect in \verb#&parinp# except if \verb#timefacforce# isn't zero.}
-\item{The code can be compiled with script \verb#Makeme# in e.g. \verb#BIN.ecs.hermnorm#.}
-\item{The code is now linked separately making a version for each coordinate system, and the F has been added to the name.  
-E.g. \verb#chmctdhf_atom#, not \verb#chmctdh#.  \verb#atomflag# is deprecated.}
-\item{The DVR for spherical polar coordinates has been changed.  Results will not be identical.}
-%\item{The integrator has been rewritten.  It does not perform exactly the same which we did not figure out.  The default option is \verb#cmfmode#=0.  There
-%are now two other variations on the mean field integrator that can be chosen with \verb#cmfmode#=1 and 2.  Try these if things are going wonky.  Mode 2 is mode zero plus an
-%additional A-vector step.}
-\end{itemize}
-
+%%
+%%\section{Changes from version 0}
+%%
+%%\begin{itemize}
+%%%
+%%\item{There is a polyatomic version under development and compiled under \verb#chmctdhf_sinc#.  Namelist \verb#&sincparinp#.
+%%\begin{itemize}
+%%\item{This version is MPI parallelized over orbitals (totally).  Set both \verb#parorbsplit=3# in namelist \verb#&parinp# and \verb#orbparflag=.true.# in 
+%%namelist \verb#&sinc_params# to do this.  
+%%For the other versions of the code (\verb#chmctdhf_atom# and \verb#chmctdhf_diatom#) option \verb#parorbsplit=3# is not
+%%supported and will result in an error.  If these options are set, \verb#numpoints# needs to be divisible by the number of processors.}
+%%%
+%%%\item{Always use \verb#toepflag=1# in
+%%%\verb#&sinc_params#; this toes the Toeplitz trick with $T^{-1}$, not the kinetic energy.}
+%%\item{Only cubic grids are supported.  There is only one variable, \verb#numpoints#, number of points on a side.}
+%%\item{There are options for a complex absorbing potential, CAP, and approximate exterior complex scaling, 
+%%ECS, in which the Coulomb operators are not scaled.}
+%%\end{itemize}
+%%}
+%%%
+%%\item{\verb#mcscfflag# is deprecated; there is no ``mcscf mode.''  There is still \verb#mcscfnum#, number of A-vectors relaxed or propagated.  
+%%\textbf{You can propagate multiple A-vectors} and this may be important for some cases ... will discuss.
+%%No \verb#mcscf.bin# is produced; everything is in \verb#spfs.bin# and \verb#avector.bin#.}
+%%%
+%%\item{There is the option \verb#littlesteps# to divide the A-vector propagation over the mean field timestep (\verb#par_timestep#).  This can be used
+%%to optimize for speed.  It is needed if you want to
+%%to try a big time step (\verb#par_timestep#) relative to the frequency of the pulse.  Big \verb#par_timestep#s are possible for weak pulses regardless of their
+%%frequency using
+%%\verb#littlesteps# $>$ 1. \textbf{Try bigger timesteps, with }\verb#littlesteps# $\mathbf{>}$\textbf{ 1, especially if your pulse is weak.} 
+%%E.g. \verb#par_timestep=0.5d0# and \verb#littlesteps=10#.  Yes, for propagation!}
+%%%
+%%\item{ 
+%%Try bigger time steps in general as lots of nuts and bolts have been tightened.  \verb#expotol# should be set low (stringent tolerance criterion), like 1d-8 or 1d-9, because
+%%in the end it goes faster for the entire run with a stringent criterion anyway.
+%%There is no need for \verb#exposteps# which has been deprecated.  But you may wish to optimize \verb#expodim# (starting Krylov dimension) and
+%%especially \verb#maxexpodim# (its maximum value).
+%%  If your orbital or a-vector iterations are restarting, as per \verb#expo.dat# or \verb#avecexpo.dat#, 
+%%  you should be sure \verb#maxexpodim# or \verb#maxaorder# is high (but not too 
+%%  high -- two or three hundred), but not worry if it is restarting after that.  See ``optimizing your runs'' below.}
+%%%
+%%\item{The variables \verb#nuccharge1#, \verb#nuccharge2#, \verb#lbig#, and \verb#mbig# are in namelist \verb#&heparinp# or \verb#&h2parinp#,
+%%not \verb#&parinp#.}
+%%%
+%%\item{All polarizations in both gauges are now possible using \verb#pulsetheta# and \verb#pulsephi#.  \verb#pulsestrength# is complex-valued, which 
+%%permits the use of nonphysical rotating waves.}
+%%%
+%%\item{\verb#whichprojflux# and \verb#corrflag# are deprecated.  The options for the Hanning window implemented by B. A. remain; 
+%%whereas they were \verb#corrflag#=3 or 4 before, now the variable is \verb#hanningflag#=3 or 4, with other values having no effect.}
+%%%
+%%\item{\verb#improvedquadflag=1# is the option for doing Newton solve for the A-vector to converge excited states.  Options 2 and 3 are NOW REINSTATED (for orbitals).  2 = orbitals, 3 = both.}
+%%\item{\verb#improvednatflag#=1 is fully debugged; it 
+%%and \verb#improvedquadflag#=1 can be set at the same time reliably.  Note the message ``Vectors converged on read'' when performing
+%%relaxation and \verb#sparseconfigflag#=1 that typically is printed each iteration as the relaxation is nearing convergence if one does
+%%not alter the default \verb#lanthresh=1d-9#, even with \verb#improvednatflag#=1.}
+%%%
+%%\end{itemize}
+%%%
+%%Less important
+%%\begin{itemize}
+%%%
+%%\item{\textbf{There is orbital parallelization.}  Running in parallel should speed the calculation regardless, unless you have a very small grid for the orbitals perhaps.
+%%Variable \verb#parorbsplit#, default 1 (parallel).  Note the \verb#MPI# column in file \verb#timings/actreduced.time.dat#.  Not all aspects of the multiplication are
+%%parallel; a good choice is \verb#nprocs#$=q\times$\verb#nspf#, with $q$ integer; then \verb#q# copies of the orbitals are propagated and MPI communication is among groups of
+%%\verb#nspf# processors.}
+%%%
+%%\item{\verb#expodim# is now the starting dimension of the orbital propagation, and new variable \verb#maxexpodim# is its maximum value.  Likewise for \verb#aorder# and the new variable \verb#maxaorder#.}
+%%%
+%%\item{The nature of the stopping criterion \verb#stopthresh# for relaxation has been changed.  It now is independent of time step and a function of the rate of change of the orbitals.  It is more robust.  A typical value of 10$^{-5}$ should be good, 10$^{-4}$ for hard cases; as low as 10$^{-7}$ should work if you want to be sure things are converged.}
+%%%
+%%\item{Restricted configuration lists are good to go with \verb#constraintflag#=1 or 2, density matrix or Dirac-Frenkel.  BOTH require \verb#dfrestrictflag#=1 or greater.}
+%%%
+%%\item{There is a \verb#numskiporbs# variable in \verb#&parinp#, and \verb#num_skip_orbs# in \verb#&h2parinp# / \verb#&heparinp#.  They have different meanings: 
+%%orbitals on file to skip, in the first case, and core orbitals to skip per m value for the generation of initial orbitals, in the latter cases.}
+%%\end{itemize}
+%%%
+%%Even less important
+%%%
+%%\begin{itemize}
+%%%
+%%\item{There is the flag \verb#orbcompact# in \verb#&parinp# set by default to zero.  This is a new option; you can try it if you want.
+%%When spfrestrictflag.ne.0, i.e., when there are symmetry restrictions on the orbitals, and \verb#mbig# is not zero, we believe you can now do things
+%%the fully best way by setting \verb#orbcompact=1#.  Things probably won't change, and it is not extensively debugged.  But, you will probably notice that it takes
+%%fewer steps occasionally, if you examine \verb#expo.dat#.  Usually, it will be the same number of steps, and if you are doing things correctly with tight
+%%error tolerances, all the numbers, the results, will probably be exactly the same.  \textbf{Calculations in which the Hamiltonian does not conserve the symmetries 
+%%imposed on the orbitals are now possible.}  We believe it is programmed it up correctly.  In other words, with \verb#orbcompact=1#, \verb#spfrestrictflag=1#,
+%%\verb#spfugrestrict=1#, a calculation done with a heteronuclear diatomic, or a pulse, is being done correctly, we hope.  
+%%With \verb#orbcompact=0#, it is not.
+%%This is exotic; don't try it without discussing it; we want to do it to see if we can get the Fluorine atom to photoionize correctly.}
+%%%
+%%\item{\verb#timefac# is set internally according to \verb#improvedrelaxflag#.  Has no effect in \verb#&parinp# except if \verb#timefacforce# isn't zero.}
+%%\item{The code can be compiled with script \verb#Makeme# in e.g. \verb#BIN.ecs.hermnorm#.}
+%%\item{The code is now linked separately making a version for each coordinate system, and the F has been added to the name.  
+%%E.g. \verb#chmctdhf_atom#, not \verb#chmctdh#.  \verb#atomflag# is deprecated.}
+%%\item{The DVR for spherical polar coordinates has been changed.  Results will not be identical.}
+%%%\item{The integrator has been rewritten.  It does not perform exactly the same which we did not figure out.  The default option is \verb#cmfmode#=0.  There
+%%%are now two other variations on the mean field integrator that can be chosen with \verb#cmfmode#=1 and 2.  Try these if things are going wonky.  Mode 2 is mode zero plus an
+%%%additional A-vector step.}
+%%\end{itemize}
+%%
 
 
 \section{Optimizing your runs}

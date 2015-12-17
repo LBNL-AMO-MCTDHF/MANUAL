@@ -1,6 +1,22 @@
 \begin{verbatim}
 
-  ** LBNL-AMO-MCTDHF VERSION 1.15 **
+  ** LBNL-AMO-MCTDHF VERSION 1.16 **
+
+FACTOR OF 1/3 REMOVED FROM PHOTOIONIZATION (Actions 16,17)
+RESULTS WILL BE 3x GREATER NOW  v1.16  BEWARE !!!
+   the factor of 1/3 is historical.  The cross section now reported
+   in column 3 of xsec.spi.dat, xsec.proj.spi.datXXXX, is
+   the quantum cross section in Megabarns for the problem at hand.
+   Perform a 1:2 weighted average of parallel and perpendicular
+   to obtain the cross section averaged over orientations
+ALSO v.16 ABSOLUTE UNITS (megabarns) IMPLEMENTED FOR ACTION 21
+   emission/absorption.  Column 9 in ZDipoleft.Dat etc is cross 
+   section in Mb. See H2ABSORPTION and HE-ATOM-ABSORPTION examples.
+
+ALSO v1.16 parconsplit.ne.0 attempted and debugged first time.  Total
+   MPI parallelization of LBNL-AMO-MCTDHF calculation possible with
+   parconsplit.ne.0 and parorbsplit.eq.3 (parorbsplit.eq.3 for 
+   polyatomic)
 
 CHANGES TO PULSE FOURIER TRANSFORM SUBROUTINES IN VERSION 1.10.
 VARIABLES EFLUXLO, EFLUXHI, NEFLUX, FLUXNBINS, FLUXSINEOPT DEPRECATED.
