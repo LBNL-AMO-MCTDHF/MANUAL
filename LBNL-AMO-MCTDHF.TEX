@@ -1297,13 +1297,13 @@ They can be set in namelist \verb#&parinp# using the variable name in the left c
 \begin{tabular}{lll}
 \verb#fluxmofile# & \verb#Bin/flux.mo.bin# & Molecular orbitals from Act=15 for photoionization calculation Act=16 or 17\\
 \verb#fluxafile# & \verb#Bin/flux.avec.bin# & A-vector for photoionization calculation\\
-\verb#spifile# & \verb#Dat/xsec.spi.dat# & Cross section from analysis of total photoionization (Act=16) \\
-\verb#projfluxfile# & \verb#Dat/xsec.proj.X.spi.dat# & Partial cross section for state number X from projected photoionization (Act=17) \\
+\verb#spifile# & \verb#Dat/xsec.spi.dat# & Cross section from analysis of total photoionization (Act=16) in megabarns is column 3 \\
+\verb#projfluxfile# & \verb#Dat/xsec.proj.X.spi.dat# & Partial cross section for state number X from projected photoionization (Act=17) is column 3 \\
 \verb#corrdatfile# &\verb#Dat/Correlation.dat# & Autocorrelation function for Act=1  \\
 \verb#corrftfile# & \verb#Dat/Corrft.dat# & Its fourier transform  \\
-\verb#zdftfile# & \verb#Dat/ZDipoleft.Dat# & Fourier transforms of field E and induced dipole moment D for absorption.  Columns \\
+\verb#zdftfile# & \verb#Dat/ZDipoleft.Dat# & Fourier transforms of field E and induced dipole moment D for absorption/emission \\
 &	& D(omega), E(omega), D(omega)$^*$ x E(omega)     $^*$ is complex conjugate.   Thus  \\
-&	& absorption is column 7. \\
+&	& absorption is column 7.  Absorption cross section in Mb is column 9. \\
 \verb#zdipfile# & \verb#Dat/ZDipoleexpect.Dat#  & Induced dipole moment D(t) \\
 \verb#ovlfile# & \verb#Overlaps.Dat#  & For Act=20, overlaps, these are the overlaps. \\
 \end{tabular}
@@ -1795,9 +1795,11 @@ The output in \verb#Dat/xsec.spi.dat# is the quantum mechanical cross section in
 equation
 \end{equation}
 
-The cross section is in column 3 and the photon energy in Hartree is in column 1 in the file \verb#Dat/xsec.spi.dat#.
+The cross section in Megabarns is in column 3 and the photon energy in Hartree is in column 1 in the file \verb#Dat/xsec.spi.dat#.
 
-Note that the equation does not include a factor of $\frac{1}{3}$.  The perpendicular and parallel cross sections for fixed nuclei H$_2$,
+Note that the equation does NOT  include a factor of $\frac{1}{3}$.
+(Now TRUE, NO FACTOR OF 1/3 as of version v1.16.)
+The perpendicular and parallel cross sections for fixed nuclei H$_2$,
 just like the physical cross section for the molecule, is approximately 12 Megabarns at onset.  Many definitions include a factor of $\frac{1}{3}$
 and sometimes $\frac{2}{3}$ for the perpendicular fixed-nuclei cross section, such that the total cross section is variously the sum or the
 1:2 weighted sum of the parallel and perpendicular cross sections, but we simply report the
@@ -1807,6 +1809,7 @@ regardless of the dimensionality of nuclear motion that is included.
 Remember, the photon energy is defined relative to \verb#eground#.  See the examples section for the script \verb#Flux.Bat#, which reads
 \verb#eground# by \verb#grep#ping from a computed output file from a relaxation run, automating the execution of the 
 \verb#chmctdhf Eground=# command above.
+
 
 \subsection{Partial photoionization (Action 17)}
 
@@ -1828,7 +1831,7 @@ of the filename.  Thus you would have \verb#cation.spfs.bin# and \verb#cation.av
 
 \
 
-Projected flux produces files \verb#xsec.proj.spi.datN# with \verb#N# being the final state.
+Projected flux produces files \verb#xsec.proj.spi.datN# with \verb#N# being the final state.  The partial cross section in Megabarns is given in column 3 of this file.
 
 \section{Calculating overlaps with given wave functions (action 20)}
 
@@ -1848,7 +1851,7 @@ propagation run, include the following.
 }\end{quote}
 
 
-\section{Fourier transform of dipole moment for absorption (action 21)}
+\section{Fourier transform of dipole moment for absorption/emission (action 21)}
 
 The absorption and emission spectrum is calculated via the ``response function''
 \begin{equation}
@@ -1857,10 +1860,52 @@ S(\omega) = 2 \omega Im (D(\omega) E^*(\omega))
 In which $D(\omega)$ is the fourier transform of the induced dipole moment, and $E^*(\omega)$ is the complex conjugate of
 the Fourier transform of the field.
 
+Relevant variables are
+\begin{quote}
+{\footnotesize
+\verb#&parinp# \\
+\verb#autotimestep=0.5d0# \\
+\verb#dipmodtime=100# \\
+\verb#diptime=200# \\
+}
+\end{quote}
+The variables don't have great names.  The value of the dipole moment will be calculated every \verb#autotimestep# atomic
+units.  The Fourier transform will be performed every \verb#dipmodtime# $\times$ \verb#autotimestep# atomic units and the
+dipole moment and its Fourier transformed will be saved to file in files \verb#zdipfile#, etc, in namelist \verb#&parinp#.
+Every \verb#diptime# atomic units (\verb#dipmodtime# is integer and \verb#diptime# is real*8) the dipoles and transforms will
+be archived to files e.g. \verb#Dat/ZDipoleft.Dat000200# as per the values of \verb#zdipfile#, etc.
+
+The columns of the Fourier transform files \verb#ZDipoleft.Dat#, etc. are as follows.  D(omega) is the F.T. of the dipole moment;
+E(omega) is that of the field.  As of v1.16 there is NOW a FACTOR of (2E) where E is photon energy, in columns 6 and 7.
+
+\begin{quote}
+{\footnotesize
+\begin{verbatim}
+## Photon energy (column 1); D(omega) (2,3); E(omega) (4,5); response (6,7); cross sect (9) 
+## UNITLESS RESPONSE FUNCTION FOR ABSORPTION/EMISSION ( 2 omega Im(D(omega)E(omega)*) ) IN COLUMN 7 
+## QUANTUM MECHANICAL PHOTOABSORPTION/EMISSION CROSS SECTION IN MEGABARNS (no factor of 1/3) IN COLUMN 9 
+\end{verbatim}
+}
+\end{quote}
+
+
 
 \section{Overlaps between wave functions on file (actions 15, 23)}
 
-xxx
+The wave function is saved to file with action 15 -- which normally is used for actions 16 and 17, total and partial photoionization.
+However if multiple wave functions are saved to file, then they can be compared with action 23.  Copy the \verb#Flux/# files for the second
+calculation to e.g. \verb#flux.mo.bin.wfn2# and use
+\begin{quote}
+{\footnotesize
+\begin{verbatim}
+&parinp
+fluxafile="Flux/flux.avec.bin.wfn1"
+fluxmofile="Flux/flux.mo.bin.wfn1"
+fluxafile2="Flux/flux.avec.bin.wfn2"
+fluxmofile2="Flux/flux.mo.bin.wfn2"
+\end{verbatim}
+}
+\end{quote}
 
 \section{Keprojector (action 24)}
 
@@ -2031,22 +2076,27 @@ Persistence of Vision(tm) Ray Tracer Version 3.6.1 (/usr/bin/g++-4.2 4.2.1 @
 
 \chapter{Examples}
 
-There are several example directories now included in the \verb#EXAMPLES# directory at top level.
+There are several example directories now included in the \verb#EXAMPLES-DEPOT# directory.  As of version 1.16 the following examples
+are included:
 
 {\footnotesize
 \begin{verbatim}
-prompt> tar -xvf MCTDHF.010115.VERSION1.0.tar.gz
-prompt> cd MCTDHF.010115.VERSION1.0
-prompt> ls
-   LBNL-AMO-MCTDHF.pdf
-   EXAMPLES
-      H2PHOTO
-      HEPHOTO
-      O2-photo
-      Methane.HF.0.06
-      Neon.HF.0.06
-      He.transient.absorption
-      O2.transient.absorption-ONE
+prompt> ls EXAMPLES-DEPOT/
+
+GAUSSIAN-POTENTIAL-0.13spacing-200pts-scale5-LAWRENCIUM-SCRIPTS
+GAUSSIAN-POTENTIAL-0.4spacing-64pts-scale5-LAWRENCIUM-SCRIPTS
+H2ABSORPTION-PLAIN-SCRIPTS
+H2PHOTO-PLAIN-SCRIPTS
+HEPHOTO-PLAIN-SCRIPTS
+HELIUM-ATOM-ABSORPTION-PLAIN-SCRIPTS
+HELIUM-POLY-ABSORPTION-1.8spacing-45pts-MAC-SCRIPTS
+Helium-Neon-ICD-LAWRENCIUM-SCRIPTS
+Helium.transient.absorption-bothrotating-weak-LAWRENCIUM-SCRIPTS
+Methane.abs.0.39495414.36pts-ion2-MAC-SCRIPTS
+Methane.abs.0.39495414.60pts-ion-LAWRENCIUM-SCRIPTS
+O2-photo-PLAIN-SCRIPTS
+O2-transient-absorption-ONE-PLAIN-SCRIPTS
+no2-0.298spacing-49pts-16.22-1x10to16-LAWRENCIUM-SCRIPTS
 \end{verbatim}
 }
 
@@ -2164,17 +2214,29 @@ spfoutfile="Bin/spfs.bin.cation.doub.pi_g"
 and so, as you can see above, what \verb#ProjFlux.Bat# does is make symbolic links to these files.
 
 
+\section{H2ABSORPTION, HE-ATOM-ABSORPTION directories (action 21, absorption/emission, Fourier transform dipole moment)}
 
+
+XXXX
+
+XXXX
+
+XXXX
+
+
+
+\section{Benzene}
+
+\section{Diels-Alder}
+
+\section{Helium-Neon Interatomic Coulombic Decay}
 
 \section{Transient absorption/emission and wave mixing}
 
 The code calculates the expectation value of the dipole moment and fourier transforms it using action 21.  The output can be post
-processed.  The example directories 
-\verb#O2.transient.absorption-ONE#,
-\verb#O2.transient.absorption#, and
+processed.  The example directory
 \verb#Helium.transient absorption#
-are included in the \verb#EXAMPLES# subdirectory.  One XUV-IR time delay is used in the first; there are scripts in
-the last two directories compute to 2D spectra.  
+is included in the \verb#EXAMPLES# subdirectory.  
 
 \subsection{O2.transient.absorption.ONE}
 
