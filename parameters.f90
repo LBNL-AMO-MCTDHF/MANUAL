@@ -395,6 +395,7 @@ integer :: computeFlux=500, &      !! 0=All in memory other: MBs to allocate
      FluxSkipMult=1              !! Read every this number of time points.  Step=FluxInterval*FluxSkipMult
 integer :: nucfluxopt=0          !! Include imaginary part of hamiltonian from nuc ke 
 integer :: FluxOpType=1                !! 0=Full ham 1=halfnium 
+integer :: writeconfiglist=0     !! NOW MUST SPECIFY configlistwrite=1 for cation calc for action 17
 !!$ IMPLEMENT ME (DEPRECATE fluxinterval as namelist input) 
 !!$ real*8 :: fluxtimestep=0.1d0
 !!EE
@@ -551,11 +552,16 @@ subroutine getOrbSetRange(out_lowspf,out_highspf)
   use mpi_orbsetmod
   implicit none
   integer, intent(out) :: out_lowspf, out_highspf
-  if (mpi_orbset_init.ne.1) then
-     OFLWR "error, mpiorbset init.ne.1",mpi_orbset_init; CFLST
+  if (parorbsplit.ne.1) then
+     out_lowspf=1
+     out_highspf=nspf
+  else
+     if (mpi_orbset_init.ne.1) then
+        OFLWR "error, mpiorbset init.ne.1",mpi_orbset_init; CFLST
+     endif
+     out_lowspf=min(firstmpiorb,nspf+1)
+     out_highspf=min(nspf,firstmpiorb+orbsperproc-1)
   endif
-  out_lowspf=firstmpiorb
-  out_highspf=min(nspf,firstmpiorb+orbsperproc-1)
 end subroutine getOrbSetRange
 
 
