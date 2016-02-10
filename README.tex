@@ -1,6 +1,10 @@
 \begin{verbatim}
 
-  ** LBNL-AMO-MCTDHF VERSION 1.19 **
+  ** LBNL-AMO-MCTDHF VERSION 1.20 **
+
+v1.20 multiple cation files for partial photoionization action 17
+   using numcatfiles, catspffiles, catavectorfiles in namelist &parinp
+   cation.configlist.BIN no longer needed
 
 v1.19 better improvedquadflag=2 and 3 (orbitals).  Excited states
    may be calculated more easily.
@@ -141,8 +145,8 @@ you will need to do if the Makeme step fails -- visit
      as per the README in that H2PHOTO directory.  Also see the H2ABSORPTION
      example directory to start.
  
-If you want to update the code and EXAMPLES-depot directories then perform 
-step 5, like steps 1-4, in the V1 working directory,
+If you want to update the code then perform step 5, like steps 1-4, in the 
+V1 working directory,
 
 5)   git pull https://github.com/LBNL-AMO-MCTDHF/V1 master
      ... then ./Makeme should be sufficient, in the BIN directories,

@@ -116,6 +116,10 @@ integer :: timingout=499         !!              !! various routines output to f
                                  !!              !!   # of calls
 character(len=200):: timingdir="timing"                       !!
 end module timing_parameters
+module tol_parameters
+real*8 :: lntol=1d-12
+real*8 :: invtol=1d-12
+end module tol_parameters
 module bio_parameters
 !!EE
 !!{\large \quad Biorthogonalization }
@@ -123,9 +127,7 @@ module bio_parameters
 integer ::      maxbiodim=100, &
      biodim=10                   !! Krylov dim for biorthogonalization
 real*8 ::     biotol=1.d-6
-real*8 :: lntol=1d-12
 integer :: biocomplex=0          !! 1=old way complex zg/hpiv  0=always real
-real*8 :: invtol=1d-12
 integer :: auto_biortho=1        !! do we want to use biorthonormalization or permutation overlaps? 0 perm overlaps, 1 biortho
 end module bio_parameters
 module spfsize_parameters
@@ -159,7 +161,7 @@ integer :: df_restrictflag=0      !!              !! apply constraint to configu
                                                  !!  SEE MANUAL FOR PROPER USE OF dfrestrictflag/shell options.
 end module df_parameters
 module parameters
-  use littleparmod;  use fileptrmod;  use r_parameters; use sparse_parameters;
+  use littleparmod;  use fileptrmod;  use r_parameters; use sparse_parameters; use tol_parameters
   use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters;use df_parameters
   implicit none
 !!EE
@@ -277,8 +279,8 @@ integer :: psistatfreq=1                                      !!  "
 character(len=200):: dendatfile="Dat/denmat.eigs.dat"         !! if notiming=0
 character(len=200):: denrotfile="Dat/denmat.rotate.dat"       !!  "
 character(len=200):: rdendatfile="Dat/rdenmat.eigs.dat"       !! deprecated
-character (len=200) :: ovlspffiles(50)="ovl.spfs.bin"         !! for actions 20 and 26
-character (len=200) :: ovlavectorfiles(50)="ovl.avector.bin"  !!  "
+character (len=200) :: ovlspffiles(50)="Bin/ovl.spfs.bin"     !! for actions 20 and 26 
+character (len=200) :: ovlavectorfiles(50)="Bin/ovl.avector.bin"!!      (see numovlfiles in ACTIONS)
 character(len=200):: outovl="Dat/Overlaps.dat"                !! for action 20
 character(len=200):: outmatel="Dat/Matel.dat"                 !! for action 20
 character(len=200):: zdipfile="Dat/ZDipoleexpect.Dat"         !! for action 21
@@ -291,12 +293,13 @@ character(len=200):: corrdatfile="Dat/Correlation.Dat"        !! for action 1
 character(len=200):: corrftfile="Dat/Corrft.Dat"              !!  "
 character(len=200):: fluxmofile="Flux/flux.mo.bin"            !! for actions 15,16,17,23
 character(len=200):: fluxafile="Flux/flux.avec.bin"           !!  "
-character(len=200):: configlistfile="WALKS/configlist.BIN"    !! need cation.configlist.BIN action 17
 character(len=200):: spifile="Dat/xsec.spi.dat"               !! for action 16 (cross section)
 character(len=200):: gtaufile="Dat/gtau.dat"                  !!  " (total flux(t) without e_ke resolution)
 character(len=200):: projspifile="Dat/xsec.proj.spi"          !! for action 17 (partial cross section)
 character(len=200):: projgtaufile="Dat/gtau.dat"              !!  " (projected flux(t))
 character(len=200):: projfluxfile="Flux/proj.flux.wfn.bin"    !!  "
+character (len=200):: catspffiles(50)="Bin/cation.spfs.bin"       !!  " (see numcatfiles in ACTIONS)
+character (len=200):: catavectorfiles(50)="Bin/cation.avector.bin"!!  "
 character(len=200):: fluxafile2="Flux/flux.avec.bin"          !! for action 23
 character(len=200):: fluxmofile2="Flux/flux.mo.bin"           !!  "
 character(len=200):: natplotbin="Bin/Natlorb.bin"             !! for actions 2,8
@@ -361,7 +364,7 @@ integer :: actions(100)=0        !!              !! ACTIONS
 !!EE
 !!{\large \quad ACTION VARIABLES (also see filenames in INPUT/OUTPUT above)}
 !!BB
-integer :: numovlfiles=1         
+integer :: numovlfiles=1         !!  see ovlspffiles and ovlavectorfiles in INPUT/OUTPUT
 integer :: nkeproj=200           !!  For keprojector ACTION 24
 real*8 :: keprojminenergy=0.04d0 !!   "
 real*8 :: keprojenergystep=0.04d0!!   "
@@ -394,12 +397,12 @@ real*8 :: dipolesumstart=1d10,&  !! range for integration of oscillator strength
 !!EE
 !!{\large \quad PHOTOIONIZATION (actions 15,16,17)}
 !!BB
-integer :: computeFlux=500, &      !! 0=All in memory other: MBs to allocate
+integer :: computeFlux=500, &    ! 0=All in memory other: MBs to allocate
      FluxInterval=50,&           !! Multiple of par_timestep at which to save flux
      FluxSkipMult=1              !! Read every this number of time points.  Step=FluxInterval*FluxSkipMult
 integer :: nucfluxopt=0          !! Include imaginary part of hamiltonian from nuc ke 
-integer :: FluxOpType=1                !! 0=Full ham 1=halfnium 
-integer :: writeconfiglist=0     !! NOW MUST SPECIFY configlistwrite=1 for cation calc for action 17
+integer :: FluxOpType=1          !! 0=Full ham 1=halfnium 
+integer :: numcatfiles=1         !! see catspffiles and catavectorfiles in INPUT/OUTPUT for action 17
 !!$ IMPLEMENT ME (DEPRECATE fluxinterval as namelist input) 
 !!$ real*8 :: fluxtimestep=0.1d0
 !!EE
@@ -457,7 +460,6 @@ integer, parameter :: nodgexpthirdflag=1  !! =1 HARDWIRE 10-2015 not sure about 
 !integer :: noorthogflag=1        !! 082010 NOW TURNING THIS ON !!
 !     hardwire.  eliminated realproject for quad which didn't have the 
 !     call to orthog.  don't remember if that was purposeful.
-!!integer :: cmfmode=0    !! experimental 1=new 0=old attempt 2=old with additional a-vector
 integer :: eigprintflag=0
 !integer :: intopt=3              !! RK, GBS      !! SPF/VMF Integrator: 0, RK; 1, GBS, 2, DLSODPK  
 !                                                 !!  for CMF: 3=expo 4=verlet
