@@ -30,24 +30,24 @@
 \contentsline {section}{\numberline {4.3}Propagation calculation, no pulse (fourier run)}{40}{section.4.3}
 \contentsline {section}{\numberline {4.4}Analysis / plotting}{40}{section.4.4}
 \contentsline {chapter}{\numberline {5}Actions}{41}{chapter.5}
-\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{41}{section.5.1}
+\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{42}{section.5.1}
 \contentsline {section}{\numberline {5.2}Saving orbitals (actions 2-4) and plotting orbitals (actions 8-10)}{42}{section.5.2}
 \contentsline {section}{\numberline {5.3}Flux and projected flux for photoionization (actions 15, 16, 17)}{42}{section.5.3}
 \contentsline {subsection}{\numberline {5.3.1}Options for saving wave function during propagation (Action 15) }{42}{subsection.5.3.1}
 \contentsline {subsection}{\numberline {5.3.2}Total photoionization (Action 16)}{43}{subsection.5.3.2}
 \contentsline {subsection}{\numberline {5.3.3}Partial photoionization (Action 17)}{44}{subsection.5.3.3}
-\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{44}{section.5.4}
+\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{45}{section.5.4}
 \contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption/emission (action 21)}{45}{section.5.5}
 \contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{45}{section.5.6}
-\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{45}{section.5.7}
+\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{46}{section.5.7}
 \contentsline {section}{\numberline {5.8}Make psistats.dat (action 25)}{46}{section.5.8}
 \contentsline {section}{\numberline {5.9}Unsupported/deprecated actions}{46}{section.5.9}
 \contentsline {chapter}{\numberline {6}Viewing the output}{47}{chapter.6}
 \contentsline {section}{\numberline {6.1}Two auxillary files}{47}{section.6.1}
 \contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{47}{section.6.2}
 \contentsline {chapter}{\numberline {7}Examples}{51}{chapter.7}
-\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2PHOTO, HEPHOTO, O2-photo }{51}{section.7.1}
-\contentsline {section}{\numberline {7.2}H2ABSORPTION, HE-ATOM-ABSORPTION directories (action 21, absorption/emission, Fourier transform dipole moment)}{53}{section.7.2}
+\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS, O2-photo-PLAIN-SCRIPTS }{51}{section.7.1}
+\contentsline {section}{\numberline {7.2}H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS for action 21, absorption/emission, Fourier transform dipole moment}{53}{section.7.2}
 \contentsline {section}{\numberline {7.3}Benzene}{53}{section.7.3}
 \contentsline {section}{\numberline {7.4}Diels-Alder}{53}{section.7.4}
 \contentsline {section}{\numberline {7.5}Helium-Neon Interatomic Coulombic Decay}{53}{section.7.5}

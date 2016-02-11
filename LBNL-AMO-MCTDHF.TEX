@@ -1620,6 +1620,7 @@ or in namelist \verb#&parinp#, e.g. \verb#numactions=3#, \verb#actions=1,2,4#.
 !!                 between two time dependent wave functions                                                                             
 !!   Act=24   keprojector  
 !!   Act=25   make psistats.dat
+!!   Act=26   mcscf_matel with supplied eigenfunctions 
 \end{verbatim}}
 %\end{tabular}
 \end{quote}
@@ -1817,6 +1818,9 @@ Remember, the photon energy is defined relative to \verb#eground#.  See the exam
 \begin{tabular}{ll}
 \verb#&parinp# \\
 \verb#FluxSkipMult#  & Interval for flux read (F.T. timestep=\verb#par_timestep# x \verb#FluxSkipMult# x \verb#FluxInterval#) \\
+\verb#numcatfiles=2# & Number of cation state files \\
+\verb#catspffiles(1)="Bin/cation.spfs.bin.pi_g"# \\
+\verb#catavectorfiles(1)="Bin/cation.avector.bin.pi_g"#  & etc. \\
 \end{tabular}}
 
 \
@@ -2076,89 +2080,95 @@ Persistence of Vision(tm) Ray Tracer Version 3.6.1 (/usr/bin/g++-4.2 4.2.1 @
 
 \chapter{Examples}
 
-There are several example directories now included in the \verb#EXAMPLES-DEPOT# directory.  As of version 1.16 the following examples
-are included:
+There are several example directories now included in the \verb#EXAMPLES-DEPOT# directory.  As of version 1.20 the following examples
+are included, and others:
 
 {\footnotesize
 \begin{verbatim}
 prompt> ls EXAMPLES-DEPOT/
-
-GAUSSIAN-POTENTIAL-0.13spacing-200pts-scale5-LAWRENCIUM-SCRIPTS
-GAUSSIAN-POTENTIAL-0.4spacing-64pts-scale5-LAWRENCIUM-SCRIPTS
-H2ABSORPTION-PLAIN-SCRIPTS
-H2PHOTO-PLAIN-SCRIPTS
-HEPHOTO-PLAIN-SCRIPTS
-HELIUM-ATOM-ABSORPTION-PLAIN-SCRIPTS
+O2-photo-PLAIN-SCRIPTS
+H2-EXAMPLE-PLAIN-SCRIPTS
+HELIUM-EXAMPLE-PLAIN-SCRIPTS
 HELIUM-POLY-ABSORPTION-1.8spacing-45pts-MAC-SCRIPTS
 Helium-Neon-ICD-LAWRENCIUM-SCRIPTS
 Helium.transient.absorption-bothrotating-weak-LAWRENCIUM-SCRIPTS
 Methane.abs.0.39495414.36pts-ion2-MAC-SCRIPTS
 Methane.abs.0.39495414.60pts-ion-LAWRENCIUM-SCRIPTS
-O2-photo-PLAIN-SCRIPTS
-O2-transient-absorption-ONE-PLAIN-SCRIPTS
-no2-0.298spacing-49pts-16.22-1x10to16-LAWRENCIUM-SCRIPTS
 \end{verbatim}
 }
 
-etc.  This chapter goes into these examples.  In the example directories, you will find bash scripts for doing a variety of things.
-We imagine that users will adapt these scripts to their needs.  They provide functionality for various things but most notably,
-using the method of Domcke et al. [CITE] for calculating macroscopically phase matched signals nonlinear wave mixing experiments.
+etc.  This chapter goes into these examples, but see the \verb#README# file in each example directory for updated instructions.  
 
+In the example directories, you will find bash scripts for running the calculation and plotting the results with gnuplot and doing other things.
 
+You probably want to start with the directories \verb#H2-EXAMPLE-PLAIN-SCRIPTS#, \verb#HELIUM-EXAMPLE-PLAIN-SCRIPTS#, and
+\verb#O2-photo-PLAIN-SCRIPTS#.
 
-\section{Total and partial photoionization cross sections: directories H2PHOTO, HEPHOTO, O2-photo }
+\section{Total and partial photoionization cross sections: directories H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS, O2-photo-PLAIN-SCRIPTS }
 
-A total or partial photoionization cross section calculation is performed in four or five steps.  
+A total or partial photoionization cross section calculation is performed in three or four steps.  
 The same primitive basis should be used for all steps.
 %
 \begin{itemize}
-\item{1) Relaxation for initial state, \verb#Input.Inp.Relax# in the examples}
-\item{2) For partial photoionization cross sections, one or more \verb#Input.Inp.Cation#s must be run to produce the $(N-1)$-electron wave functions
-that are used for projection.}
-\item{3) A short pulse propagation, \verb#Input.Inp.Pulse# in the examples.  At the end of the pulse, very little of the wave function should have 
-been absorbed by the complex scaled part of the grid.  Otherwise, it won't be counted as flux.}
-\item{4) A long propagation that is used to construct the flux-flux correlation function as per the formalism of Meyer [CITE] and paper XX.  The sharper the features
-in the photoionization cross section that are to be resolved, and the longer the real part of the grid is,
-the longer the propagation must be.  Useful durations range from 100 to 8000 atomic units (2.5 to 20fs).}
-\item{5) The final step is the analysis step.  It is run separate from the propagation. }
-\end{itemize}
-
-Again, all the inputs for the \verb#EXAMPLES/# calculations are collected at the end of the chapter.  
-
-\
-
-The \verb#H2PHOTO# and \verb#HEPHOTO# directories are very similar and include scripts for total photoionization. 
-\verb#O2-photo# also includes partial photoionization.
-
-The MCTDHF calculation for the photoionization calculation is performed by the following three steps, in order:
-
+\item{1) Relaxation for initial state, \verb#Input.Inp.Relax# in the examples, (e.g. script \verb#Relax.Bat#)
  {\footnotesize
  \begin{verbatim}
  prompt> chmctdhf_diatom Inp=Input.Inp.Relax |tee Outs/Out.Relax 
- prompt> chmctdhf_diatom Inp=Input.Inp.Relax |tee Outs/Out.Pulse
+ \end{verbatim}
+}
+}
+\item{2) For partial photoionization cross sections, one or more \verb#Input.Inp.Cation#s must be run to produce the $(N-1)$-electron wave functions
+that are used for projection.
+ {\footnotesize
+ \begin{verbatim}
+ prompt> chmctdhf_diatom Inp=Input.Inp.Cation.pi_g |tee Outs/Out.Cation.pi_g
+ \end{verbatim}
+}
+}
+\item{3) A propagation that is used to construct the flux-flux correlation function as per the formalism of Meyer [CITE] and paper XX.  The sharper the features in the photoionization cross section that are to be resolved, and the longer the real part of the grid is,
+the longer the propagation must be.  Useful durations range from 100 to 8000 atomic units (2.5 to 20fs).  (script \verb#Fourier.Bat#)
+ {\footnotesize
+ \begin{verbatim}
  prompt> chmctdhf_diatom Inp=Input.Inp.Fourier |tee Outs/Out.Fourier
  \end{verbatim}
 }
-While the last is running, one may calculate the cross section so far computed.  A script \verb#Flux.Bat# is included in the example
-directories; here is is for \verb#H2PHOTO#: 
+}
+\item{4) The final step is the analysis step for total (Action 16) or partial (Action 17) photoionization.  It is run separate from the propagation
+and can be run while the propagation is still running as long as the final time is specified less than the maximum currently calculated
+time.  (script \verb#Flux.Bat#)
  {\footnotesize
  \begin{verbatim}
+ prompt> chmctdhf_diatom Inp=Input.Inp.Fourier  Act=16 eground=-1.15645 T=50 |tee Outs/Out.Flux.t50
+ \end{verbatim}
+}
+}
+\end{itemize}
+
+\
+
+While the Fourier step is running, one may calculate the cross section so far computed (the Flux step). 
+A script \verb#Flux.Bat# is included in the example directories, e.g.
+ {\footnotesize
+ \begin{verbatim}
+ #!/bin/bash
+
 if [[ "$1 " == " " ]]
 then
         echo "need time"
         exit
 fi
-ee=`grep T= Outs/Out*ax |tail -n 1 |colrm 1 28 |colrm 21 10000 |cut -f 1 -d "E"`
-energy=`echo "$ee * 10" |bc -l`
-chmctdhf_diatom Inp=Input.Inp.Fourier Act=16   Eground=$energy T=$1 |tee Outs/Out.flux.t$1
-cp Dat/xsec.spi.dat Dat/xsec.spi.dat.t$1
+
+energy=`grep -A 2 CONV Outs/Out.relax |tail -n 1|tr -s " "|cut -f 2 -d " "`
+
+echo "ENERGY $energy"
+
+chmctdhf_diatom Inp=Input.Inp.Fourier$2 Act=16   Eground=$energy T=$1 |tee Outs/Out.flux$2.t$1
+
+cp -p Dat/xsec.spi$2.dat Dat/xsec.spi$2.dat.t$1
 \end{verbatim}
 }
 
-For \verb#O2-photo#, 
-to calculate the cation wave functions for partial photoionization, one can use the script \verb#RunCat.Bat# if working
-on a parallel machine (\verb#RunCat.Bat# uses \verb#mpirun# so that killing the \verb#wait# command kills all of them).  This does all of the cation wave functions at once.
-Otherwise, run each cation input, e.g. \verb#Input.Inp.Cation.pi_g#, manually, or edit \verb#RunCat.Bat# to your purposes.  Here is \verb#RunCat.Bat#:
+For \verb#O2-photo#, many cation states are calculated.  Here is \verb#RunCat.Bat#:
 
 {\footnotesize
 \begin{verbatim}
@@ -2170,59 +2180,36 @@ Otherwise, run each cation input, e.g. \verb#Input.Inp.Cation.pi_g#, manually, o
 \end{verbatim}
 }
  
-
-
-
-Again, in these examples the \verb#&parinp# namelist input variable 
-\verb#eground# is not set in the input, so one must specify it on the command line.
-Script \verb#ProjFlux.Bat# in \verb#O2-photo# takes care of this.  Here is the guts of \verb#ProjFlux.Bat#:
+Script \verb#ProjFlux.Bat# will calculate the partial photoionization cross sections.
 
 {\footnotesize
 \begin{verbatim}
-if [[ "$2 " == " " ]]
+#!/bin/bash
+
+if [[ "$1 " == " " ]]
 then
-        echo "need time and extension"
+        echo "need time"
         exit
 fi
-rm WALKS/cation.configlist.BIN
-rm Bin/cation.spfs.bin Bin/cation.avector.bin
-ln -s cation.configlist.BIN.$2 WALKS/cation.configlist.BIN
-ln -s avector.bin.cation.$2 Bin/cation.avector.bin
-ln -s spfs.bin.cation.$2 Bin/cation.spfs.bin
-ee=`grep T= Outs/Out*ax |tail -n 1 |colrm 1 28 |colrm 21 10000 |cut -f 1 -d "E"`
-energy=`echo "$ee * 1000" |bc -l`
-chmctdhf_diatom Inp=Input.Inp.Fourier Act=17   Eground=$energy T=$1 |tee Outs/Out.projflux.t$1
-for file in Dat/FTGTau*_*Dat Dat/KVLsum*_*dat Dat/xsec.proj*_*dat
+
+energy=`grep -A 2 CONV Outs/Out.relax |tail -n 1|tr -s " "|cut -f 2 -d " "`
+
+echo "ENERGY $energy"
+
+chmctdhf_diatom Inp=Input.Inp.Fourier$2 Act=17   Eground=$energy T=$1 |tee Outs/Out.projflux$2.t$1
+
+for file in Dat/xsec.proj.spi${2}*_*dat
 do
-        mv $file $file.$2
+        mv $file $file.t$1
 done
 \end{verbatim}
 }
 For O$_2$ partial photoionization there are many final cation states with different symmetries.  
-However currently the projected flux can only be calculated
-for one set of cation states at a time.  Always, it needs \verb#WALKS/cation.configlist.BIN#, the cation 
-configuration list, and the cation wave function(s), \verb#Bin/cation.spfs.bin# and \verb#cation.avector.bin#.
-These file names are hard wired in the code presently.  
-In the input files that are run by \verb#RunCat.Bat#, the output file names are specified, for instance,
-{\footnotesize
-\begin{verbatim}
-configlistfile="WALKS/cation.configlist.BIN.doub.pi_g"
-avectoroutfile="Bin/avector.bin.cation.doub.pi_g"
-spfoutfile="Bin/spfs.bin.cation.doub.pi_g"
-\end{verbatim}
-}
-and so, as you can see above, what \verb#ProjFlux.Bat# does is make symbolic links to these files.
+As of version 1.20 these are now all loaded with namelist variable \verb#numcatfiles=8#.
 
+\section{H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS for action 21, absorption/emission, Fourier transform dipole moment}
 
-\section{H2ABSORPTION, HE-ATOM-ABSORPTION directories (action 21, absorption/emission, Fourier transform dipole moment)}
-
-
-XXXX
-
-XXXX
-
-XXXX
-
+The Fourier step in these examples also produces photoabsorption results via action 21.  See the README and scripts \verb#gnu.abs.here# etc.
 
 
 \section{Benzene}
