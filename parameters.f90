@@ -21,6 +21,52 @@ integer :: numclasses=1
 integer, allocatable :: classorb(:,:),nperclass(:), orbclass(:)
 end module class_parameters
 
+module dotmod
+contains
+subroutine realpardotsub(one,two,n,out)
+  implicit none
+  integer,intent(in) :: n
+  real*8,intent(in) :: one(n),two(n)
+  real*8,intent(out) :: out
+  real*8 :: sum
+  sum=DOT_PRODUCT(one,two)
+  call mympirealreduceone(sum)
+  out=sum
+end subroutine realpardotsub
+
+
+!! CALLED INSIDE OMP LOOPS
+
+recursive function dot(one,two,n)
+  implicit none
+  integer,intent(in) :: n
+  DATATYPE,intent(in) :: one(n), two(n)
+  DATATYPE :: dot, sum
+  integer :: i
+  sum=0.d0
+  do i=1,n
+     sum = sum + CONJUGATE(one(i)) * two(i) 
+  enddo
+  dot=sum
+end function dot
+
+
+!! CALLED INSIDE OMP LOOPS
+
+recursive function hermdot(one,two,n)
+  implicit none
+  integer,intent(in) :: n
+  DATATYPE,intent(in) :: one(n), two(n)
+  DATATYPE :: hermdot, sum
+  integer :: i
+  sum=0.d0
+  do i=1,n
+     sum =   sum + ALLCON(one(i)) *  two(i) 
+  enddo
+  hermdot=sum
+end function hermdot
+end module dotmod
+
 !!YYSNIPYY
 !!BB
 !! *********************************************************************************************************** !!
@@ -44,8 +90,9 @@ integer :: sparsesummaflag=0                     !! 0=gather 1=summa(bad) 2=send
 integer :: sparsedfflag=1                        !! If zero disable separate restricted config walk list
 integer :: sparseconfigflag=0    !! Sparse       !! Sparse configuration routines on or off (for large # configs)
 integer :: sparseopt =1                          !! 0= direct CI  1= sparse matrix algebra (faster, more memory)
-integer :: nonsparsepropmode=1   !! 0 = ZGCHBV expokit; 1 = mine expmat
-logical :: use_dfwalktype=.false.                !! internal
+integer :: nonsparsepropmode=1                   !! 0 = ZGCHBV expokit; 1 = mine expmat
+integer :: nzflag=0                              !! use only processors with nonzero number of Slaters for a-vec
+logical :: use_dfwalktype=.false.                !! internal, ignore me
 end module sparse_parameters
 module ham_parameters
 !!EE
@@ -162,7 +209,8 @@ integer :: df_restrictflag=0      !!              !! apply constraint to configu
 end module df_parameters
 module parameters
   use littleparmod;  use fileptrmod;  use r_parameters; use sparse_parameters; use tol_parameters
-  use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters;use df_parameters
+  use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters;
+  use df_parameters; use dotmod
   implicit none
 !!EE
 !!{\large \quad MAIN PARAMETERS }
