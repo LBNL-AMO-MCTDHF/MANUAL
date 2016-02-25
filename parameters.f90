@@ -23,17 +23,6 @@ end module class_parameters
 
 module dotmod
 contains
-subroutine realpardotsub(one,two,n,out)
-  implicit none
-  integer,intent(in) :: n
-  real*8,intent(in) :: one(n),two(n)
-  real*8,intent(out) :: out
-  real*8 :: sum
-  sum=DOT_PRODUCT(one,two)
-  call mympirealreduceone(sum)
-  out=sum
-end subroutine realpardotsub
-
 
 !! CALLED INSIDE OMP LOOPS
 
@@ -92,7 +81,8 @@ integer :: sparseconfigflag=0    !! Sparse       !! Sparse configuration routine
 integer :: sparseopt =1                          !! 0= direct CI  1= sparse matrix algebra (faster, more memory)
 integer :: nonsparsepropmode=1                   !! 0 = ZGCHBV expokit; 1 = mine expmat
 integer :: nzflag=1                              !! use only processors with nonzero number of Slaters for a-vec
-logical :: use_dfwalktype=.false.                !! internal, ignore me
+logical :: shuffle_dfwalktype=.true.             !! redistribute restricted configs evenly over processors
+logical :: use_dfwalktype=.false.                !! internal, IGNORE me
 end module sparse_parameters
 module ham_parameters
 !!EE
@@ -114,7 +104,7 @@ DATATYPE :: timefac=&            !! Prop/        !! d/dt psi = timefac * H * psi
 real*8 :: mshift=0d0                             !! shift configurations based on m-value.. to break 
                                                  !!  degeneracy for state averaged sym restricted
                                                  !!  (mrestrictmin, mrestrictmax) mcscf; good idea.
-integer :: offaxispulseflag=0                    !! internal (not namelist)
+integer :: offaxispulseflag=0                    !! internal (not namelist), IGNORE me
 end module ham_parameters
 module basis_parameters
 !!EE
@@ -178,10 +168,10 @@ integer :: auto_biortho=1        !! do we want to use biorthonormalization or pe
 integer :: logbranch=1           !! branch of logarithm 3 options 0,1,2
 end module bio_parameters
 module spfsize_parameters
-integer :: spfsize,spfsmallsize                  !!internal
-integer :: reducedpotsize = -1                   !!internal
 integer :: parorbsplit=1                         !!  Parallelize orbital calculation.  Might speed up, might
                                                  !!   slow down; check timing.
+integer :: spfsize,spfsmallsize                  !! internal, IGNORE
+integer :: reducedpotsize = -1                   !! internal, iGNORE
 end module spfsize_parameters
 module constraint_parameters
 !!EE
@@ -586,7 +576,7 @@ end module parameters
 module mpi_orbsetmod
   implicit none
   integer :: mpi_orbset_init=0
-  integer :: orbsperproc=(-1),  norbsets
+  integer :: orbsperproc=(-1),  norbsets=(-1),  maxprocsperset=(-1)
   integer :: myorbset=-1, firstmpiorb=-1  !! specific to each processor
   integer, allocatable :: MPI_GROUP_ORB(:),MPI_COMM_ORB(:)
 end module
@@ -616,20 +606,17 @@ module mpimod
 #ifdef MPIFLAG
   include "mpif.h"
 #endif
-  integer ::  MPI_GROUP_WORLD
-
-integer :: nprocs=1, myrank
-character(len=200), parameter :: mpioutfilebase="MPIOUTS/MPI.Out."
-character(len=200) :: mpioutfile
-integer, parameter :: mpioutfilelen=16
-integer :: stdoutflag=0
-integer :: mpitime=0
-integer :: nonmpitime=0
-integer :: mpiatime=0
-integer :: mpibtime=0
-!real*8 :: firstmpitime
-!real*8 :: lastmpitime
-
+  integer :: MPI_GROUP_WORLD
+  integer :: MY_COMM_ORB=(-798)
+  integer :: nprocs=1, myrank
+  character(len=200), parameter :: mpioutfilebase="MPIOUTS/MPI.Out."
+  character(len=200) :: mpioutfile
+  integer, parameter :: mpioutfilelen=16
+  integer :: stdoutflag=0
+  integer :: mpitime=0
+  integer :: nonmpitime=0
+  integer :: mpiatime=0
+  integer :: mpibtime=0
 
 end module mpimod
 

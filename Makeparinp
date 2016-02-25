@@ -2,7 +2,7 @@
 beginline="\\begin"
 endline="\\end"
 
-grep -B 10000 "XXSNIPXX" parameters.f90 |grep -v "XXSNIPXX" > temp.txt
+grep -B 10000 "XXSNIPXX" parameters.f90 |grep -v "XXSNIPXX" |grep -v IGNORE > temp.txt
 grep -A 10000 "YYSNIPYY" temp.txt |grep -v "YYSNIPYY" > parinp.tex
 perl -pi -e "s/!!BB/\\\\begin{verbatim}/" parinp.tex
 perl -pi -e "s/!!EE/\\\\end{verbatim}/" parinp.tex
