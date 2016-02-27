@@ -242,6 +242,10 @@ integer,allocatable:: myavectorexciteto(:,:,:)   !!
                                                  !! For both excite and hole: value is spin orbital index
                                                  !! 1=1alpha, 2=1beta, 3=1alpha, etc.
                                                  !! negative input -> negative coefficent
+integer :: messflag=0                            !! add static to initial orbitals
+real*8 :: messamount=1.d-4                       !!    how much
+integer :: messavec=0                            !! add static to initial a-vector
+real*8 :: messaamount=1.d-4                      !!    how much
 \end{verbatim}
 !!{\large \quad INPUT / OUTPUT }
 \begin{verbatim}
