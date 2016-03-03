@@ -230,6 +230,8 @@ real*8  :: expostepfac=1.2d0     !!              !! Miscellaneous algorithm para
 !!BB
 real*8 :: aerror=1d-9            !!              !! error criterion for sparse a-vector prop
                                                  !! and eigenfunctions with improvedquad=1,3
+integer :: maxaorder=100         !!              !! max lanczos order for sparse a-vector expokit prop or
+                                                 !!    dgmres solve for avector improvedquadflag=1,3
 !!EE
 !!{\large \quad PROPAGATION}
 !!BB
@@ -239,7 +241,6 @@ real*8 :: finaltime=4d4          !! T=           !! length of prop.  Overridden 
 !!\textbf{\qquad SPARSE - if sparseconfigflag .ne. 0}
 !!BB
 integer :: aorder=30             !!              !! Starting lanczos order for sparse a-vector expokit prop
-integer :: maxaorder=100         !!              !! max lanczos order for sparse a-vector expokit prop
 !!EE
 !!{\large \quad RELAXATION}
 !!BB
@@ -361,8 +362,8 @@ integer :: numpulses=1
 integer ::  pulsetype(100)=1      !!              !!  Pulsetype=1:  A(t) = pulsestrength * sin(w t)^2,
 real*8  :: omega(100)=1.d0        !!              !!  2:  A(t) = strength * sin(w t)^2 
 real*8 :: omega2(100)=1.d0        !!              !!             * sin(w2 t + phaseshift),
-real*8 :: pulsestart(100)=0.1d0   !!              !!   
-real*8 :: phaseshift(100)=0.d0    !!              !!    pulsestart < t < pulsestart + pi/w; 0 otherwise
+real*8 :: pulsestart(100)=0d0     !!              !!   
+real*8 :: phaseshift(100)=0d0     !!              !!    pulsestart < t < pulsestart + pi/w; 0 otherwise
 real*8 :: chirp(100)=0d0          !!              !!
 real*8 :: ramp(100)=0d0
 real*8 :: longstep(100)=1d0       !!              !!  Pulsetype 3 available: monochromatic, sinesq start+end
