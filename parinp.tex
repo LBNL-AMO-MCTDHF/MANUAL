@@ -50,6 +50,7 @@ module basis_parameters
 \end{verbatim}
 !!{\large \quad CONFIGURATIONS / SLATER DETERMINANTS}
 \begin{verbatim}
+integer :: holeflag=0            !! Holes        !! index holes not electrons
 integer :: mrestrictflag=0       !!              !! If spfrestrictflag=1, restrict wfn to given total M.
 integer :: mrestrictval=0        !!              !!    This is the value.
 integer :: mrestrictmax= 99999   !!              !! If doing state averaged MCSCF, can include a range of m vals;
@@ -69,7 +70,6 @@ integer :: numexcite(100)=999    !! Numexcite=   !! excitations from core shells
                                                  !!    assigned via command line input.
 integer :: minocc(100)=-999      !!              !! minimum occupation, each shell
 integer :: maxocc(100)=999       !!              !!    maximum
-integer :: vexcite=999           !!              !! excitations INTO last shell. Use to restrict to doubles, etc.
 integer :: shells(100)=1
 integer :: allshelltop(0:100)=0           
 \end{verbatim}
