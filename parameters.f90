@@ -144,6 +144,11 @@ integer :: spfrestrictflag=0     !!              !! Restrict m values of orbital
 integer :: spfmvals(1000)=0      !!              !!   M-values of orbitals 
 integer :: spfugrestrict=0       !!              !! Restrict parity of orbitals? 
 integer :: spfugvals(1000)=0     !!              !!   Parity (+/-1; 0=either) of orbitals (ungerade/gerade)
+integer :: tot_adim              !! = numr*localnconfig     INTERNAL, IGNORE ME
+integer :: num_config=-1                         !!         INTERNAL, IGNORE ME
+integer, allocatable :: configs_perproc(:)       !!         INTERNAL, IGNORE ME
+integer :: first_config,last_config,local_nconfig!!         INTERNAL, IGNORE ME
+integer :: numpart,num2part    !! particles or holes        INTERNAL, IGNORE ME
 end module basis_parameters
 module timing_parameters
 !!EE
@@ -172,7 +177,8 @@ end module bio_parameters
 module spfsize_parameters
 integer :: parorbsplit=1                !! 1=keep all orbs, prop in parallel   3=polyatomic, full MPI
 integer :: spfsize,spfsmallsize         !! internal, IGNORE
-integer :: reducedpotsize = -1          !! internal, iGNORE
+integer :: reducedpotsize = -1          !! internal, IGNORE
+integer :: totspfdim                    !! nspf * spfsize (local size only)  internal, IGNORE
 end module spfsize_parameters
 module constraint_parameters
 !!EE
@@ -447,7 +453,7 @@ real*8 :: dipolesumstart=1d10,&  !! range for integration of oscillator strength
 integer :: computeFlux=500, &    ! 0=All in memory other: MBs to allocate
      FluxInterval=50,&           !! Multiple of par_timestep at which to save flux
      FluxSkipMult=1              !! Read every this number of time points.  Step=FluxInterval*FluxSkipMult
-integer :: nucfluxopt=0          !! Include imaginary part of hamiltonian from nuc ke 
+integer :: nucfluxopt=1          !! Include imaginary part of hamiltonian from nuc ke 2=only that part
 integer :: FluxOpType=1          !! 0=Full ham 1=halfnium 
 integer :: numcatfiles=1         !! see catspffiles and catavectorfiles in INPUT/OUTPUT for action 17
 !!$ IMPLEMENT ME (DEPRECATE fluxinterval as namelist input) 
@@ -478,7 +484,6 @@ real*8  :: povsparse=1.d-3       !!              !! Sparsity threshold for trans
 !!BB
 integer :: conjgpropflag=0       !! for complex Domcke
 integer :: pulsewindowtoo=1      !! use window function for E(omega) as well
-integer :: nucfluxflag=0         !! 0 = both 1 =electronic 2= nuclear  NOT nuclear flux action 13,14
 logical :: readfullvector=.true.
 logical :: walksinturn=.false.   !!              !! if you have problems with MPI i/o, maybe try this
 integer :: turnbatchsize=5
@@ -547,15 +552,6 @@ DATATYPE, allocatable :: elecweights(:,:,:), elecradii(:)
 real*8 :: langramthresh=1d-9
 integer :: numreduced=1
 integer :: headersize=200
-
-integer :: tot_adim   !! numr*localnconfig
-
-integer :: num_config=-1
-integer, allocatable :: configs_perproc(:)
-integer :: first_config,last_config,local_nconfig
-
-integer :: numpart,num2part    !! particles or holes
-integer :: totspfdim           !! nspf * spfsize (local size only)
 
 integer :: autosize, autosteps
 integer :: cdenflag=0            !!              !! Calulate natconfig?  Not necessary if Act=6.
