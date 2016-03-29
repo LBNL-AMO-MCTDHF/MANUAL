@@ -25,10 +25,10 @@ integer :: nzflag=1                              !! use only processors with non
 logical :: shuffle_dfwalktype=.true.             !! redistribute restricted configs evenly over processors
 integer :: sparseprime=1                         !! For reordering config list (experimental)
 end module sparse_parameters
-module ham_parameters
 \end{verbatim}
 !!{\large \quad HAMILTONIAN PARAMETERS}
 \begin{verbatim}
+module ham_parameters
 integer :: nonuc_checkflag=1     !!              !! Turn off deriv operators in nuclear dofs.
 integer :: tdflag=0              !! Pulse        !! Use pulse?
 integer :: velflag=0             !!              !!  Length (V(t)) or velocity (A(t))      
@@ -46,10 +46,16 @@ real*8 :: mshift=0d0                             !! shift configurations based o
                                                  !!  degeneracy for state averaged sym restricted
                                                  !!  (mrestrictmin, mrestrictmax) mcscf; good idea.
 end module ham_parameters
-module basis_parameters
 \end{verbatim}
 !!{\large \quad CONFIGURATIONS / SLATER DETERMINANTS}
 \begin{verbatim}
+module df_parameters
+integer :: df_restrictflag=0      !!              !! apply constraint to configuration list?  Must use this
+                                                 !!  option if constraintflag /= 0.  1 is sufficient;
+                                                 !!  dfrestrictflag=2 necessary for action 22. 
+                                                 !!  SEE MANUAL FOR PROPER USE OF dfrestrictflag/shell options.
+end module df_parameters
+module basis_parameters
 integer :: holeflag=0            !! Holes        !! index holes not electrons
 integer :: mrestrictflag=0       !!              !! If spfrestrictflag=1, restrict wfn to given total M.
 integer :: mrestrictval=0        !!              !!    This is the value.
@@ -80,36 +86,45 @@ integer :: spfmvals(1000)=0      !!              !!   M-values of orbitals
 integer :: spfugrestrict=0       !!              !! Restrict parity of orbitals? 
 integer :: spfugvals(1000)=0     !!              !!   Parity (+/-1; 0=either) of orbitals (ungerade/gerade)
 end module basis_parameters
-module timing_parameters
 \end{verbatim}
 !!{\large \quad Timing}
 \begin{verbatim}
+module timing_parameters
 integer :: notiming=2            !!NoTiming=0,1,2!! 0=write all 1=write some 2= write none
                                  !!  Timing=2,1,0!!     controls writing of all timing and some info files
 integer :: timingout=499         !!              !! various routines output to file (timing info) every this 
                                  !!              !!   # of calls
 character(len=200):: timingdir="timing"                       !!
 end module timing_parameters
-module tol_parameters
-real*8 :: lntol=1d-4             !! Regularization of natural logarithm
-real*8 :: invtol=1d-8            !! Regularization of inverses especially for spectral expansions
-end module tol_parameters
-module bio_parameters
 \end{verbatim}
 !!{\large \quad Biorthogonalization }
 \begin{verbatim}
+module bio_parameters
 integer ::      maxbiodim=100, & !! Max krylov dim for biorthogonalization
      biodim=10                   !! Starting krylov dim for biorthogonalization
 real*8 ::     biotol=1.d-6       !! Expokit tolerance parameter for biorthogonalization
 integer :: logbranch=1           !! branch of logarithm 3 options 0,1,2
 end module bio_parameters
+\end{verbatim}
+!!{\large \quad Regularization}
+\begin{verbatim}
+module tol_parameters
+real*8 :: lntol=1d-4             !! Regularization of natural logarithm
+real*8 :: invtol=1d-8            !! Regularization of inverses especially for spectral expansions
+end module tol_parameters
+module denreg_parameters
+real*8 :: denreg=1d-10           !! Denreg=      !! density matrix regularization parameter.
+end module denreg_parameters
+\end{verbatim}
+!!{\large \quad Orbital parallelization}
+\begin{verbatim}
 module spfsize_parameters
 integer :: parorbsplit=1                !! 1=keep all orbs, prop in parallel   3=polyatomic, full MPI
 end module spfsize_parameters
-module constraint_parameters
 \end{verbatim}
 !!{\large \quad CONSTRAINT: With constraintflag. NEED FOR RESTRICTED CONFIG LIST.}
 \begin{verbatim}
+module constraint_parameters
 real*8 :: lioreg= 1d-9           !!              !! Regularization for linear solve constraint
 integer :: conway=0                              !! for constraintflag=2, dirac frenkel constraint
                                                  !!   0=McLachlan 1=50/50 mix 2=Lagrangian
@@ -117,18 +132,6 @@ integer :: conway=0                              !! for constraintflag=2, dirac 
 real*8 :: conprop=1d-1                           !! epsilon for conway=3
 real*8 :: condamp=1
 end module constraint_parameters
-module denreg_parameters
-real*8 :: denreg=1d-10           !! Denreg=      !! density matrix regularization parameter.
-end module denreg_parameters
-module df_parameters
-\end{verbatim}
-!!{\large \quad CONFIGURATIONS}
-\begin{verbatim}
-integer :: df_restrictflag=0      !!              !! apply constraint to configuration list?  Must use this
-                                                 !!  option if constraintflag /= 0.  1 is sufficient;
-                                                 !!  dfrestrictflag=2 necessary for action 22. 
-                                                 !!  SEE MANUAL FOR PROPER USE OF dfrestrictflag/shell options.
-end module df_parameters
 module parameters
   use littleparmod;  use fileptrmod;  use r_parameters; use sparse_parameters; use tol_parameters
   use ham_parameters;  use basis_parameters;  use timing_parameters; use spfsize_parameters;
@@ -279,6 +282,7 @@ character(len=200):: projgtaufile="Dat/gtau.dat"              !!  " (projected f
 character(len=200):: projfluxfile="Flux/proj.flux.wfn.bin"    !!  "
 character (len=200):: catspffiles(50)="Bin/cation.spfs.bin"       !!  " (see numcatfiles in ACTIONS)
 character (len=200):: catavectorfiles(50)="Bin/cation.avector.bin"!!  "
+character(len=200):: angprojspifile="Dat/xsec.angproj.spi"    !!  " if angularflag.ne.0 calculate partial ionization, wrt angle
 character(len=200):: fluxafile2="Flux/flux.avec.bin"          !! for action 23
 character(len=200):: fluxmofile2="Flux/flux.mo.bin"           !!  "
 character(len=200):: natplotbin="Bin/Natlorb.bin"             !! for actions 2,8
@@ -382,6 +386,8 @@ integer :: computeFlux=500, &    ! 0=All in memory other: MBs to allocate
 integer :: nucfluxopt=1          !! Include imaginary part of hamiltonian from nuc ke 2=only that part
 integer :: FluxOpType=1          !! 0=Full ham 1=halfnium 
 integer :: numcatfiles=1         !! see catspffiles and catavectorfiles in INPUT/OUTPUT for action 17
+integer :: angularflag=0         !! for action 17 calculate fully differential partial ionization, angular
+                                 !!   output in angprojspifile (atom/diatom only)
 !!$ IMPLEMENT ME (DEPRECATE fluxinterval as namelist input) 
 !!$ real*8 :: fluxtimestep=0.1d0
 \end{verbatim}
