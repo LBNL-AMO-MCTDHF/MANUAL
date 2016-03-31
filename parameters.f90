@@ -554,7 +554,7 @@ integer :: numpropsteps=1000000  !!              !! length of prop.  Overridden 
 integer, parameter :: maxmc=100
 DATATYPE :: drivingenergies(maxmc)=0d0
 integer :: numcurves=1
-DATATYPE, allocatable :: elecweights(:,:,:), elecradii(:)
+DATATYPE, allocatable :: elecweights(:,:,:,:), elecradii(:)
 real*8 :: langramthresh=1d-9
 integer :: numreduced=1
 integer :: headersize=200
