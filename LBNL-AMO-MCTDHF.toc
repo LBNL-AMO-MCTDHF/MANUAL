@@ -21,43 +21,43 @@
 \contentsline {subsection}{\numberline {2.4.2}Using sparse configuration routines}{23}{subsection.2.4.2}
 \contentsline {section}{\numberline {2.5}Action input }{23}{section.2.5}
 \contentsline {section}{\numberline {2.6}Complete list of namelist variables}{23}{section.2.6}
-\contentsline {chapter}{\numberline {3}Output }{34}{chapter.3}
-\contentsline {section}{\numberline {3.1}Action output (incomplete list)}{35}{section.3.1}
-\contentsline {chapter}{\numberline {4}Types of calculation}{37}{chapter.4}
-\contentsline {section}{\numberline {4.1}Relaxation calculation}{37}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Utility}{39}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Pulse calculation}{39}{section.4.2}
-\contentsline {section}{\numberline {4.3}Propagation calculation, no pulse (fourier run)}{40}{section.4.3}
-\contentsline {section}{\numberline {4.4}Analysis / plotting}{40}{section.4.4}
-\contentsline {chapter}{\numberline {5}Actions}{41}{chapter.5}
-\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{42}{section.5.1}
-\contentsline {section}{\numberline {5.2}Saving orbitals (actions 2-4) and plotting orbitals (actions 8-10)}{42}{section.5.2}
-\contentsline {section}{\numberline {5.3}Flux and projected flux for photoionization (actions 15, 16, 17)}{42}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Options for saving wave function during propagation (Action 15) }{42}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Total photoionization (Action 16)}{43}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}Partial photoionization (Action 17)}{44}{subsection.5.3.3}
-\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{45}{section.5.4}
-\contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption/emission (action 21)}{45}{section.5.5}
-\contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{45}{section.5.6}
-\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{46}{section.5.7}
-\contentsline {section}{\numberline {5.8}Make psistats.dat (action 25)}{46}{section.5.8}
-\contentsline {section}{\numberline {5.9}Unsupported/deprecated actions}{46}{section.5.9}
-\contentsline {chapter}{\numberline {6}Viewing the output}{47}{chapter.6}
-\contentsline {section}{\numberline {6.1}Two auxillary files}{47}{section.6.1}
-\contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{47}{section.6.2}
-\contentsline {chapter}{\numberline {7}Examples}{51}{chapter.7}
-\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS, O2-photo-PLAIN-SCRIPTS }{51}{section.7.1}
-\contentsline {section}{\numberline {7.2}H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS for action 21, absorption/emission, Fourier transform dipole moment}{53}{section.7.2}
-\contentsline {section}{\numberline {7.3}Benzene}{53}{section.7.3}
-\contentsline {section}{\numberline {7.4}Diels-Alder}{53}{section.7.4}
-\contentsline {section}{\numberline {7.5}Helium-Neon Interatomic Coulombic Decay}{53}{section.7.5}
-\contentsline {section}{\numberline {7.6}Transient absorption/emission and wave mixing}{53}{section.7.6}
-\contentsline {subsection}{\numberline {7.6.1}O2.transient.absorption.ONE}{53}{subsection.7.6.1}
-\contentsline {subsection}{\numberline {7.6.2}2D spectra for O$_2$ and He}{53}{subsection.7.6.2}
-\contentsline {chapter}{\numberline {8}Programmers' guide}{54}{chapter.8}
-\contentsline {section}{\numberline {8.1}Main program files}{55}{section.8.1}
-\contentsline {section}{\numberline {8.2}Project directories}{57}{section.8.2}
-\contentsline {section}{\numberline {8.3}About the Makefile and Makeme}{57}{section.8.3}
-\contentsline {section}{\numberline {8.4}Important variables}{58}{section.8.4}
-\contentsline {section}{\numberline {8.5}Project directories}{58}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}Functions/subroutines that are necessary to define}{58}{subsection.8.5.1}
+\contentsline {chapter}{\numberline {3}Output }{35}{chapter.3}
+\contentsline {section}{\numberline {3.1}Action output (incomplete list)}{36}{section.3.1}
+\contentsline {chapter}{\numberline {4}Types of calculation}{38}{chapter.4}
+\contentsline {section}{\numberline {4.1}Relaxation calculation}{38}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Utility}{40}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Pulse calculation}{40}{section.4.2}
+\contentsline {section}{\numberline {4.3}Propagation calculation, no pulse (fourier run)}{41}{section.4.3}
+\contentsline {section}{\numberline {4.4}Analysis / plotting}{41}{section.4.4}
+\contentsline {chapter}{\numberline {5}Actions}{42}{chapter.5}
+\contentsline {section}{\numberline {5.1}Autocorrelation, action 1}{43}{section.5.1}
+\contentsline {section}{\numberline {5.2}Saving orbitals (actions 2-4) and plotting orbitals (actions 8-10)}{43}{section.5.2}
+\contentsline {section}{\numberline {5.3}Flux and projected flux for photoionization (actions 15, 16, 17)}{43}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Options for saving wave function during propagation (Action 15) }{43}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Total photoionization (Action 16)}{44}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Partial photoionization (Action 17)}{45}{subsection.5.3.3}
+\contentsline {section}{\numberline {5.4}Calculating overlaps with given wave functions (action 20)}{46}{section.5.4}
+\contentsline {section}{\numberline {5.5}Fourier transform of dipole moment for absorption/emission (action 21)}{46}{section.5.5}
+\contentsline {section}{\numberline {5.6}Overlaps between wave functions on file (actions 15, 23)}{46}{section.5.6}
+\contentsline {section}{\numberline {5.7}Keprojector (action 24)}{47}{section.5.7}
+\contentsline {section}{\numberline {5.8}Make psistats.dat (action 25)}{47}{section.5.8}
+\contentsline {section}{\numberline {5.9}Unsupported/deprecated actions}{47}{section.5.9}
+\contentsline {chapter}{\numberline {6}Viewing the output}{48}{chapter.6}
+\contentsline {section}{\numberline {6.1}Two auxillary files}{48}{section.6.1}
+\contentsline {section}{\numberline {6.2}Viewing natural orbitals, orbitals, density, R-natural orbitals, and projections of natural configurations }{48}{section.6.2}
+\contentsline {chapter}{\numberline {7}Examples}{52}{chapter.7}
+\contentsline {section}{\numberline {7.1}Total and partial photoionization cross sections: directories H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS, O2-photo-PLAIN-SCRIPTS }{52}{section.7.1}
+\contentsline {section}{\numberline {7.2}H2-EXAMPLE-PLAIN-SCRIPTS, HELIUM-EXAMPLE-PLAIN-SCRIPTS for action 21, absorption/emission, Fourier transform dipole moment}{54}{section.7.2}
+\contentsline {section}{\numberline {7.3}Benzene}{54}{section.7.3}
+\contentsline {section}{\numberline {7.4}Diels-Alder}{54}{section.7.4}
+\contentsline {section}{\numberline {7.5}Helium-Neon Interatomic Coulombic Decay}{54}{section.7.5}
+\contentsline {section}{\numberline {7.6}Transient absorption/emission and wave mixing}{54}{section.7.6}
+\contentsline {subsection}{\numberline {7.6.1}O2.transient.absorption.ONE}{54}{subsection.7.6.1}
+\contentsline {subsection}{\numberline {7.6.2}2D spectra for O$_2$ and He}{54}{subsection.7.6.2}
+\contentsline {chapter}{\numberline {8}Programmers' guide}{55}{chapter.8}
+\contentsline {section}{\numberline {8.1}Main program files}{56}{section.8.1}
+\contentsline {section}{\numberline {8.2}Project directories}{58}{section.8.2}
+\contentsline {section}{\numberline {8.3}About the Makefile and Makeme}{58}{section.8.3}
+\contentsline {section}{\numberline {8.4}Important variables}{59}{section.8.4}
+\contentsline {section}{\numberline {8.5}Project directories}{59}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}Functions/subroutines that are necessary to define}{59}{subsection.8.5.1}
