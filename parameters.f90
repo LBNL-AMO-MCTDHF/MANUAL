@@ -269,7 +269,7 @@ integer :: maxaorder=100         !!              !! max lanczos order for sparse
 !!EE
 !!{\large \quad PROPAGATION}
 !!BB
-integer :: step_flag=1           !!              !! Main propagation steps, CMF or LMF depending on pre/propflag
+integer :: step_flag=2           !!              !! Main propagation steps, CMF or LMF depending on pre/propflag
 integer :: prepropflag=1         !!              !! Option for pre-propagation step
 integer :: postpropflag=2        !!              !! Option for LMF post-propagation 1=orbitals 2=A-vector
 integer :: littlesteps=1         !!              !! Sub intervals of mean field time step for avector prop
