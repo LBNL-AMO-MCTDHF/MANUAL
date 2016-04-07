@@ -269,8 +269,9 @@ integer :: maxaorder=100         !!              !! max lanczos order for sparse
 !!EE
 !!{\large \quad PROPAGATION}
 !!BB
-integer :: prop_method=0         !!              !! Predictor/corrector algorithm 0,1,2,3,4 also prepropflag
-integer :: prepropflag=0         !!              !! Option for pre-propagation step for strong fields or constraint
+integer :: step_flag=1           !!              !! Main propagation steps, CMF or LMF depending on pre/propflag
+integer :: prepropflag=1         !!              !! Option for pre-propagation step
+integer :: postpropflag=2        !!              !! Option for LMF post-propagation 1=orbitals 2=A-vector
 integer :: littlesteps=1         !!              !! Sub intervals of mean field time step for avector prop
 real*8 :: finaltime=4d4          !! T=           !! length of prop.  Overridden for pulse and relax.  
 !!EE
@@ -368,6 +369,7 @@ character(len=SLN):: outovl="Dat/Overlaps.dat"                   !! for action 2
 character(len=SLN):: outmatel="Dat/Matel.dat"                    !! for action 20
 integer :: act21circ=0                                           !! set nonzero to enable circular polarization 
                                                                  !!     output for action 21
+integer :: reference_pulses=0                                    !! for complex Domcke action 21
 character(len=SLN):: xdipfile="Dat/XDipoleexpect.Dat",&          !! for action 21 dipole moments D(t)
  ydipfile="Dat/YDipoleexpect.Dat",&
  zdipfile="Dat/ZDipoleexpect.Dat"                 
