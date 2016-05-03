@@ -218,7 +218,7 @@ end module timing_parameters
 module bio_parameters
 integer ::      maxbiodim=100, & !! Max krylov dim for biorthogonalization
      biodim=10                   !! Starting krylov dim for biorthogonalization
-real*8 ::     biotol=1.d-6       !! Expokit tolerance parameter for biorthogonalization
+real*8 ::     biotol=1.d-7       !! Expokit tolerance parameter for biorthogonalization
 integer :: logbranch=1           !! branch of logarithm 4 options 0,1,2,3
 integer :: auto_biortho=1        !! internal, IGNORE me
 end module bio_parameters
@@ -284,7 +284,7 @@ integer :: aorder=30             !!              !! Starting lanczos order for s
 !!BB
 integer :: improvednatflag=0     !!              !! Replace with natorbs every iteration
 integer :: improvedfockflag=0    !!              !! Replace with generalized fock eigenfuncts each iteration
-real*8 :: fockreg=1d-8           !!              !!
+real*8 :: fockreg=0.5d0          !!              !!    for improvedfockflag
 real*8 :: stopthresh=1d-5        !!              !! Spf error tolerance for relaxation convergence
 real*8 :: astoptol=1d-7                          !! Avector error tolerance for relax
 real*8 :: timestepfac=1d0                        !! accelerate relax. multiply par_timestep by this each time
