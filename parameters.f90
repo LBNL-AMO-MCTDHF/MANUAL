@@ -454,6 +454,7 @@ integer :: actions(100)=0        !!              !! ACTIONS
 !!   Act=26   mcscf_matel with supplied eigenfunctions 
 !!   Act=27   like action 16 total photoionization during calculation just integral dt
 !!   Act=28   like action 17 partial photoionization during calculation just integral dt
+!!   Act=29   redo action 21 with file saved from flux.bin files from Act=15
 !!EE
 !!{\large \quad ACTION VARIABLES (also see filenames in INPUT/OUTPUT above)}
 !!BB
@@ -476,7 +477,7 @@ real*8 :: autotimestep=1.d0      !! ACTIONS 1 and 21 (autocorrelation and emissi
 !! int fttriwindow(MAXACTIONS)=1    !! If nonzero, window function is ((tmax-t)/tmax)**ftwindowpower
 !! int ftwindowpower(MAXACTIONS)=1  !! If fttriwindow=0, 
 !!                                  !!    window function is cos(pi t / 2 / tmax)**ftwindowpower 
-integer :: ftdiff=0                 !! fourier transform derivative of dipole moment not dipole moment
+integer :: ftdiff=1                 !! fourier transform derivative of dipole moment not dipole moment
 !!EE
 !!{\large \quad EMISSION/ABSORPTION (action 21)}
 !!BB
@@ -548,6 +549,10 @@ integer :: debugflag=0
 real*8 :: debugfac=1d0
 !!EE
 !! XXSNIPXX
+
+integer :: tentmode=0            !! tentmode=1 attempt not good
+
+integer :: jacquaddir=0
 
 integer, parameter :: nodgexpthirdflag=1  !! =1 HARDWIRE 10-2015 not sure about dgexpthird
 
