@@ -1,3 +1,3 @@
 
-rm *aux *bbl *dvi *log *out *~
+rm *aux *bbl *dvi *log *out *~ *synctex*
 
