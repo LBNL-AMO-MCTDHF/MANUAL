@@ -10,11 +10,13 @@ perl -pi -e "s/!!EE/\\\\end{verbatim}/" parinp.tex
 echo "\\begin{verbatim}" > h2parinp.tex
 echo "\\begin{verbatim}" > heparinp.tex
 echo "\\begin{verbatim}" > sincparinp.tex
+echo "\\begin{verbatim}" > sinc1dparinp.tex
 echo "\\begin{verbatim}" > README.tex
 
 grep -B 10000 XXSNIPXX H2_params.f90 |grep -v XXSNIPXX >> h2parinp.tex
 grep -B 10000 XXSNIPXX He_params.f90 |grep -v XXSNIPXX >> heparinp.tex
 grep -B 10000 XXSNIPXX sinc_params.f90 |grep -v XXSNIPXX >> sincparinp.tex
+grep -B 10000 XXSNIPXX sinc1d_params.f90 |grep -v XXSNIPXX >> sinc1dparinp.tex
 
 ## grep -B 10000 XXSNIPXX README |grep -v XXSNIPXX >> README.tex
 
@@ -22,6 +24,7 @@ cat README >> README.tex
 
 echo "\\end{verbatim}" >> h2parinp.tex
 echo "\\end{verbatim}" >> sincparinp.tex
+echo "\\end{verbatim}" >> sinc1dparinp.tex
 echo "\\end{verbatim}" >> heparinp.tex
 echo "\\end{verbatim}" >> README.tex
 
